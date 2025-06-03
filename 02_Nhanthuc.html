@@ -1,508 +1,601 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>02. Nhận thức (React Code View)</title>
+  <title>Khoa học thần kinh nhận thức</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: 'Courier New', Courier, monospace;
-      background: #f9f9f9;
-      padding: 20px;
-    }
-    pre {
-      background: #272822;
-      color: #f8f8f2;
-      padding: 20px;
-      border-radius: 8px;
-      overflow-x: auto;
-      white-space: pre-wrap;
-      line-height: 1.5;
-    }
-    h2 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
       color: #333;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+      color: #fff;
+      text-shadow: 1px 2px 7px #e77c40b8;
+    }
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 5px;
+    }
+    .header p {
+      font-size: 1.1em;
+      opacity: 0.94;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+    .tab {
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.23);
+      border: none;
+      border-radius: 22px;
+      color: #3c2a21;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.06em;
+      letter-spacing: 0.01em;
+      transition: all 0.25s;
+      box-shadow: 0 1px 6px #da7a29a2;
+      backdrop-filter: blur(8px);
+    }
+    .tab:hover, .tab.active {
+      background: #fff8ea;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 2px 13px #ed994bb8;
+    }
+    .content {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      padding: 24px 23px 28px 23px;
+      box-shadow: 0 8px 40px rgba(237, 153, 75, 0.13);
+      min-height: 480px;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.6s;}
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+    .highlight {
+      background: linear-gradient(120deg, #ffe29f 0%, #ffa99f 100%);
+      padding: 15px 17px;
+      border-radius: 8px;
+      margin: 12px 0;
+      border-left: 5px solid #f2994a;
+      font-size: 1.04em;
+    }
+    .timeline {
+      border-left: 4px solid #e07c24;
+      margin-left: 8px;
+      margin-bottom: 18px;
+    }
+    .event {
+      position: relative;
+      margin-bottom: 30px;
+      margin-left: 20px;
+      background: linear-gradient(100deg, #fdf6e3 0%, #ffe3cc 100%);
+      border-radius: 9px;
+      box-shadow: 0 4px 15px #ffa20010;
+      padding: 18px 18px 13px 22px;
+    }
+    .event:before {
+      content: "";
+      position: absolute;
+      left: -36px; top: 17px;
+      width: 18px; height: 18px;
+      background: #e07c24;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 7px #da721d50;
+    }
+    .event-title { font-weight: bold; font-size: 1.15em; color: #e07c24; }
+    .event-info { font-size: 0.98em; margin-top: 4px; margin-bottom: 6px;}
+    .event-sample { background: #ffe29f4d; border-left: 4px solid #e07c24; margin: 10px 0 0 0; padding: 8px 14px; border-radius: 6px;}
+    .diagram-area {
+      background: linear-gradient(120deg, #c3fff8 0%, #ffe7c7 100%);
+      border-radius: 12px;
+      padding: 15px 14px;
+      margin: 18px 0;
+      text-align: center;
+      box-shadow: 0 2px 12px #bde3ec48;
+    }
+    .flow-step {
+      display: inline-block;
+      background: #fff;
+      padding: 13px 18px;
+      margin: 9px 5px;
+      border-radius: 8px;
+      box-shadow: 0 1px 8px #7ed6df1b;
+      position: relative;
+      font-weight: 500;
+      font-size: 1.06em;
+    }
+    .flow-step:after {
+      content: "→";
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3em;
+      color: #e07c24;
+      font-weight: bold;
+    }
+    .flow-step:last-child:after { display: none; }
+    .practical-example {
+      background: linear-gradient(120deg, #d5f3e7 0%, #fbecc7 100%);
+      border-radius: 8px;
+      padding: 14px 15px;
+      margin: 10px 0 13px 0;
+      border-left: 5px solid #69b578;
+    }
+    .example-title { font-weight: bold; color: #22805c; margin-bottom: 5px;}
+    /* Quiz style */
+    .quiz-container { margin-top: 20px; }
+    .question {
+      background: #fff; border-radius: 8px; padding: 16px; margin: 10px 0;
+      box-shadow: 0 2px 10px #6e45336c; border-left: 4px solid #e07c24;
+    }
+    .question h4 { color: #af4709; margin-bottom: 12px; }
+    .options { list-style: none; padding: 0; }
+    .options li {
+      padding: 8px 12px; margin: 4px 0; background: #f7f7f7;
+      border-radius: 5px; cursor: pointer; transition: background 0.23s;
+      border: 1px solid #fff4e0;
+    }
+    .options li:hover { background: #fff0e1; }
+    .options li.selected { background: #ffe3cc; border: 1px solid #f2994a;}
+    .options li.correct { background: #bafbc5; border: 1px solid #30b849;}
+    .options li.incorrect { background: #ffd1d1; border: 1px solid #f06161;}
+    .quiz-actions {text-align:center; margin-top:18px;}
+    .quiz-actions button {margin:0 8px;}
+    .score-area {font-size:1.13em; margin: 16px 0 0 0;}
+    @media (max-width: 650px) {
+      .container {padding:5px;}
+      .content {padding:12px;}
+      .header h1 {font-size:1.55em;}
+      .tabs {gap:3px;}
+    }
+    /* Small utility buttons */
+    .demo-button {
+      background: linear-gradient(45deg, #e07c24, #ffe29f);
+      color: #fff; border: none; padding: 9px 22px;
+      border-radius: 22px; cursor: pointer; font-size: 1em;
+      font-weight: bold;
+      margin: 0 2px;
+      transition: all 0.2s;
+      box-shadow: 0 1px 8px #ed994b4c;
+    }
+    .demo-button:hover {
+      background: linear-gradient(45deg, #ffc372, #e07c24);
+      transform: scale(1.04);
+      box-shadow: 0 2px 10px #e07c24aa;
     }
   </style>
 </head>
 <body>
-  <h2>02. Nhận thức (Hiển thị mã React)</h2>
-  <pre><code>import React, { useState, useEffect } from &#x27;react&#x27;;
-import { Card, CardContent, CardHeader, CardTitle } from &#x27;@/components/ui/card&#x27;;
-import { Brain, Zap, Eye, Network, Award, RefreshCw, CheckCircle, XCircle } from &#x27;lucide-react&#x27;;
-
-const CognitiveNeuroscienceGame = () =&gt; {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [gameCompleted, setGameCompleted] = useState(false);
-  const [answeredQuestions, setAnsweredQuestions] = useState([]);
-
-  const questions = [
+<div class="container">
+  <div class="header">
+    <h1>🧬 Khoa học thần kinh nhận thức</h1>
+    <p>Tâm lý học nhận thức – Tổng hợp khái niệm, thí nghiệm, mô hình, ứng dụng & luyện tập trắc nghiệm</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('definitions')">Định nghĩa & Khái niệm</button>
+    <button class="tab" onclick="showTab('timeline')">Thí nghiệm theo dòng thời gian</button>
+    <button class="tab" onclick="showTab('models')">Mô hình & Sơ đồ xử lý</button>
+    <button class="tab" onclick="showTab('applications')">Ứng dụng & Bệnh lý</button>
+    <button class="tab" onclick="showTab('quiz')">Trắc nghiệm ôn tập</button>
+  </div>
+  <div class="content">
+    <!-- Định nghĩa -->
+    <div id="definitions" class="tab-content active">
+      <h2>📚 Khái niệm then chốt</h2>
+      <div class="highlight"><b>Tế bào thần kinh (Neuron):</b> Đơn vị cơ bản nhất của não bộ và hệ thần kinh, truyền tín hiệu qua các synapse.</div>
+      <div class="highlight"><b>Synapse:</b> Khoảng trống giữa hai neuron, nơi tín hiệu truyền qua bằng điện hóa học.</div>
+      <div class="highlight"><b>Điện thế nghỉ/Điện thế hoạt động:</b> Trạng thái điện thế -70mV khi nghỉ và +40mV khi neuron phát xung điện (Edgar Adrian, Nobel 1932).</div>
+      <div class="highlight"><b>Feature detectors:</b> Tế bào thần kinh chỉ phản ứng với đặc trưng cụ thể như hướng, cạnh, chuyển động (Hubel & Wiesel, Nobel 1981).</div>
+      <div class="highlight"><b>Mã hóa thần kinh:</b> <u>Mã hóa đặc hiệu</u> (1 neuron), <u>mã hóa thưa thớt</u> (ít neuron), <u>mã hóa phổ biến</u> (nhiều neuron) cùng tham gia.</div>
+      <div class="highlight"><b>Cục bộ hóa chức năng:</b> Mỗi vùng não đảm nhiệm chức năng riêng biệt (Broca, Wernicke, FFA...)</div>
+      <div class="highlight"><b>Đại diện phân tán:</b> Một trải nghiệm, cảm xúc thường kích hoạt đồng thời nhiều vùng não bộ khác nhau.</div>
+    </div>
+    <!-- Timeline -->
+    <div id="timeline" class="tab-content">
+      <h2>🧭 Dòng thời gian các thí nghiệm & phát hiện lớn</h2>
+      <div class="timeline">
+        <div class="event">
+          <div class="event-title">1870: Camillo Golgi</div>
+          <div class="event-info">Kỹ thuật nhuộm bạc nitrat mô não &rarr; Quan sát rõ mạng lưới tế bào thần kinh.</div>
+          <div class="event-sample">Minh họa não như “mạng lưới dây điện” – tạo điều kiện cho các nghiên cứu tiếp theo.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1890: Ramon y Cajal</div>
+          <div class="event-info">Phân tích mô não, sử dụng kỹ thuật Golgi &rarr; Phát hiện neuron là đơn vị cơ bản, mô tả synapse và mạch thần kinh.<br><b>→ Đặt nền móng "neuron doctrine". Nobel 1906.</b></div>
+          <div class="event-sample">Não bộ giống như bảng mạch điện tử; mỗi neuron như một thiết bị trong hệ thống.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1920: Edgar Adrian</div>
+          <div class="event-info">Ghi lại tín hiệu điện của neuron &rarr; Phát hiện điện thế nghỉ (-70mV), điện thế hoạt động (+40mV), tỉ lệ phóng điện đại diện cho cường độ kích thích.<br><b>Nobel 1932.</b></div>
+          <div class="event-sample">Ấn mạnh lên da &rarr; cảm giác mạnh hơn do neuron phóng điện nhanh hơn.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1960: Hubel & Wiesel</div>
+          <div class="event-info">Thí nghiệm trên mèo &rarr; Khám phá "feature detectors" – neuron chỉ đáp ứng với cạnh, hướng hoặc chuyển động nhất định.<br><b>Nobel 1981.</b></div>
+          <div class="event-sample">Nhận diện được viền cạnh, hướng chuyển động nhờ tế bào thần kinh đặc thù.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1970: Blackmore & Cooper</div>
+          <div class="event-info">Nuôi mèo con trong môi trường chỉ có chiều ngang/dọc &rarr; Hệ thần kinh thích nghi – chỉ đáp ứng kích thích phù hợp.<br><b>→ Chứng minh tính mềm dẻo của não bộ.</b></div>
+          <div class="event-sample">Trẻ nhỏ học nhiều ngôn ngữ dễ dàng nếu được tiếp xúc sớm.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1861: Paul Broca</div>
+          <div class="event-info">Nghiên cứu bệnh nhân “Tan” &rarr; Xác định vùng não kiểm soát nói – tổn thương gây mất khả năng nói (Broca's area).</div>
+          <div class="event-sample">Bệnh nhân sau chấn thương sọ não khó nói nhưng vẫn hiểu được lời nói.</div>
+        </div>
+        <div class="event">
+          <div class="event-title">1879: Carl Wernicke</div>
+          <div class="event-info">Nghiên cứu bệnh nhân tổn thương thùy thái dương &rarr; Xác định vùng hiểu ngôn ngữ (Wernicke's area) – tổn thương gây loạn ngôn ngữ.</div>
+          <div class="event-sample">Nói lưu loát nhưng “lộn xộn”, không hiểu ý người khác.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Mô hình & Sơ đồ xử lý -->
+    <div id="models" class="tab-content">
+      <h2>🔬 Mô hình & sơ đồ xử lý</h2>
+      <div class="diagram-area">
+        <b>🧠 Sơ đồ truyền tín hiệu thần kinh</b><br>
+        <span class="flow-step">Kích thích</span>
+        <span class="flow-step">Thụ thể</span>
+        <span class="flow-step">Neuron truyền xung</span>
+        <span class="flow-step">Synapse</span>
+        <span class="flow-step">Não bộ</span>
+        <span class="flow-step">Xử lý nhận thức</span>
+      </div>
+      <div class="diagram-area">
+        <b>🌊 Xử lý phân cấp trong thị giác</b><br>
+        <span class="flow-step">Kích thích đơn giản<br>(hướng, chuyển động)</span>
+        <span class="flow-step">Kích thích phức tạp<br>(bàn tay, hình dạng)</span>
+        <span class="flow-step">Kích thích rất phức tạp<br>(gương mặt, vật thể...)</span>
+      </div>
+      <div class="diagram-area">
+        <b>🔑 Mã hóa thần kinh</b><br>
+        <span class="flow-step">Mã hóa đặc hiệu<br>(1 neuron duy nhất)</span>
+        <span class="flow-step">Mã hóa thưa thớt<br>(ít neuron)</span>
+        <span class="flow-step">Mã hóa phổ biến<br>(nhiều neuron)</span>
+      </div>
+    </div>
+    <!-- Ứng dụng & bệnh lý -->
+    <div id="applications" class="tab-content">
+      <h2>🌟 Ứng dụng & bệnh lý liên quan</h2>
+      <div class="practical-example">
+        <div class="example-title">Chẩn đoán tổn thương não bộ</div>
+        <ul>
+          <li><b>Broca’s Aphasia:</b> Mất khả năng nói nhưng hiểu được ngôn ngữ.</li>
+          <li><b>Wernicke’s Aphasia:</b> Nói lưu loát nhưng không hiểu/người khác không hiểu ý.</li>
+          <li><b>Prosopagnosia:</b> Không nhận diện được gương mặt do tổn thương vùng FFA.</li>
+        </ul>
+      </div>
+      <div class="practical-example">
+        <div class="example-title">Ứng dụng công nghệ thần kinh</div>
+        <ul>
+          <li><b>Chụp cộng hưởng từ chức năng (fMRI):</b> Xác định vùng não hoạt hóa theo chức năng (gương mặt, nơi chốn, vật thể...)</li>
+          <li><b>Connectome:</b> Bản đồ mạng lưới kết nối các vùng não bộ giúp hiểu về bệnh thần kinh, nhận thức.</li>
+        </ul>
+      </div>
+      <div class="practical-example">
+        <div class="example-title">Tâm lý học nhận thức trong trị liệu</div>
+        <p>Ứng dụng hiểu biết về cơ chế thần kinh nhận thức vào điều trị phục hồi chức năng ngôn ngữ, ghi nhớ, hoặc các rối loạn thần kinh.</p>
+      </div>
+    </div>
+    <!-- Quiz -->
+    <div id="quiz" class="tab-content">
+      <h2>📝 Trắc nghiệm ôn tập</h2>
+      <div class="quiz-container" id="quiz-questions"></div>
+      <div class="quiz-actions">
+        <button class="demo-button" onclick="calculateScore()">Tính điểm</button>
+        <button class="demo-button" onclick="resetQuiz()">Làm lại</button>
+        <div id="finalScore" class="score-area"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Tab logic
+  function showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    event.target.classList.add('active');
+    if(tabName==='quiz') resetQuiz();
+  }
+  // Quiz Questions: extracted from 02_Nhanthuc.html (17 questions, all with explanation)
+  const quizQuestionsRaw = [
     {
-      id: 1,
-      question: &quot;Ai là nhà khoa học đã phát triển học thuyết tế bào thần kinh (neuron doctrine)?&quot;,
-      options: [
-        &quot;A. Camillo Golgi&quot;,
-        &quot;B. Ramon y Cajal&quot;,
-        &quot;C. Edgar Adrian&quot;,
-        &quot;D. Paul Broca&quot;
+      q: "Ai là nhà khoa học đã phát triển học thuyết tế bào thần kinh (neuron doctrine)?",
+      a: [
+        "A. Camillo Golgi",
+        "B. Ramon y Cajal",
+        "C. Edgar Adrian",
+        "D. Paul Broca"
       ],
       correct: 1,
-      explanation: &quot;Ramon y Cajal đã phát triển học thuyết TBTK, theo đó các tế bào thần kinh là đơn vị cơ bản của não bộ và không liên tục với nhau.&quot;
+      explain: "Ramon y Cajal đã phát triển học thuyết neuron, đặt nền móng cho thần kinh học hiện đại."
     },
     {
-      id: 2,
-      question: &quot;Khoảng trống giữa các tế bào thần kinh được gọi là gì?&quot;,
-      options: [
-        &quot;A. Axon&quot;,
-        &quot;B. Dendrite&quot;, 
-        &quot;C. Synapse&quot;,
-        &quot;D. Cell body&quot;
+      q: "Khoảng trống giữa các tế bào thần kinh được gọi là gì?",
+      a: [
+        "A. Axon",
+        "B. Dendrite",
+        "C. Synapse",
+        "D. Cell body"
       ],
       correct: 2,
-      explanation: &quot;Synapse là khoảng trống giữa phần cuối của sợi trục của một TBTK này và sợi nhánh hoặc thân tế bào của TBTK khác.&quot;
+      explain: "Synapse là nơi tiếp giáp giữa hai neuron, truyền tín hiệu hóa học."
     },
     {
-      id: 3,
-      question: &quot;Điện thế nghỉ của tế bào thần kinh là bao nhiêu?&quot;,
-      options: [
-        &quot;A. +40mV&quot;,
-        &quot;B. -70mV&quot;,
-        &quot;C. 0mV&quot;,
-        &quot;D. +70mV&quot;
+      q: "Điện thế nghỉ của tế bào thần kinh là bao nhiêu?",
+      a: [
+        "A. +40mV",
+        "B. -70mV",
+        "C. 0mV",
+        "D. +70mV"
       ],
       correct: 1,
-      explanation: &quot;Điện thế nghỉ (resting potential) của TBTK là -70mV, được phát hiện bởi Edgar Adrian.&quot;
+      explain: "Điện thế nghỉ là -70mV, xác định bởi Adrian."
     },
     {
-      id: 4,
-      question: &quot;Ai đã khám phá ra rằng tỉ lệ phóng điện của TBTK đại diện cho cường độ kích thích?&quot;,
-      options: [
-        &quot;A. Ramon y Cajal&quot;,
-        &quot;B. Edgar Adrian&quot;,
-        &quot;C. David Hubel&quot;,
-        &quot;D. Carl Wernicke&quot;
+      q: "Ai đã khám phá ra rằng tỉ lệ phóng điện của neuron đại diện cho cường độ kích thích?",
+      a: [
+        "A. Ramon y Cajal",
+        "B. Edgar Adrian",
+        "C. David Hubel",
+        "D. Carl Wernicke"
       ],
       correct: 1,
-      explanation: &quot;Edgar Adrian phát hiện rằng khi tăng lực ấn, tỉ lệ phóng điện (số lượng điện thế hoạt động mỗi giây) tăng lên, đại diện cho cường độ kích thích.&quot;
+      explain: "Edgar Adrian: lực kích thích mạnh → tỉ lệ neuron phóng điện tăng."
     },
     {
-      id: 5,
-      question: &quot;Bộ dò đặc trưng (feature detectors) được phát hiện bởi ai?&quot;,
-      options: [
-        &quot;A. Blackmore và Cooper&quot;,
-        &quot;B. Hubel và Wiesel&quot;, 
-        &quot;C. Gross và cộng sự&quot;,
-        &quot;D. Rolls và Tovee&quot;
+      q: "Bộ dò đặc trưng (feature detectors) được phát hiện bởi ai?",
+      a: [
+        "A. Blackmore và Cooper",
+        "B. Hubel và Wiesel",
+        "C. Gross và cộng sự",
+        "D. Rolls và Tovee"
       ],
       correct: 1,
-      explanation: &quot;David Hubel và Thorsten Wiesel (giải Nobel 1981) phát hiện các TBTK trong vỏ não thị giác đáp ứng với các đặc trưng cụ thể như hướng, chuyển động, độ dài.&quot;
+      explain: "Hubel & Wiesel: neuron ở vỏ não thị giác phản ứng với đặc trưng nhất định."
     },
     {
-      id: 6,
-      question: &quot;Mã hóa đặc hiệu (specificity coding) là gì?&quot;,
-      options: [
-        &quot;A. Đại diện bởi neural firing của 1 vật thể do 1 nhóm lớn TBTK đảm nhiệm&quot;,
-        &quot;B. Đại diện bởi neural firing của 1 vật thể chỉ do 1 TBTK chuyên biệt đảm nhiệm&quot;,
-        &quot;C. Đại diện bởi neural firing của 1 vật thể do 1 nhóm nhỏ TBTK đảm nhiệm&quot;,
-        &quot;D. Không có đáp án đúng&quot;
+      q: "Mã hóa đặc hiệu (specificity coding) là gì?",
+      a: [
+        "A. Đại diện bởi nhóm lớn neuron",
+        "B. Đại diện bởi 1 neuron chuyên biệt",
+        "C. Đại diện bởi nhóm nhỏ neuron",
+        "D. Không có đáp án đúng"
       ],
       correct: 1,
-      explanation: &quot;Mã hóa đặc hiệu là khi đại diện bởi neural firing của 1 vật thể chỉ do 1 TBTK chuyên biệt đảm nhiệm.&quot;
+      explain: "Một neuron duy nhất đại diện cho một vật thể (specificity coding)."
     },
     {
-      id: 7,
-      question: &quot;Vùng Broca liên quan đến chức năng gì?&quot;,
-      options: [
-        &quot;A. Hiểu ngôn ngữ&quot;,
-        &quot;B. Sản xuất ngôn ngữ&quot;,
-        &quot;C. Nhận diện gương mặt&quot;,
-        &quot;D. Trí nhớ&quot;
+      q: "Vùng Broca liên quan đến chức năng gì?",
+      a: [
+        "A. Hiểu ngôn ngữ",
+        "B. Sản xuất ngôn ngữ",
+        "C. Nhận diện gương mặt",
+        "D. Trí nhớ"
       ],
       correct: 1,
-      explanation: &quot;Vùng Broca (Paul Broca, 1861) liên quan đến sản xuất ngôn ngữ. Tổn thương vùng này gây nói chậm, vất vả, sai ngữ pháp.&quot;
+      explain: "Vùng Broca: kiểm soát nói. Tổn thương gây khó nói."
     },
     {
-      id: 8,
-      question: &quot;Vùng Wernicke có chức năng gì?&quot;,
-      options: [
-        &quot;A. Sản xuất ngôn ngữ&quot;,
-        &quot;B. Hiểu ngôn ngữ&quot;,
-        &quot;C. Nhận diện âm thanh&quot;,
-        &quot;D. Điều khiển vận động&quot;
+      q: "Vùng Wernicke có chức năng gì?",
+      a: [
+        "A. Sản xuất ngôn ngữ",
+        "B. Hiểu ngôn ngữ",
+        "C. Nhận diện âm thanh",
+        "D. Điều khiển vận động"
       ],
       correct: 1,
-      explanation: &quot;Vùng Wernicke (Carl Wernicke, 1879) liên quan đến hiểu ngôn ngữ. Tổn thương vùng này khiến nói trôi chảy nhưng không hiểu được ý nghĩa.&quot;
+      explain: "Vùng Wernicke: hiểu ngôn ngữ. Tổn thương nói lộn xộn."
     },
     {
-      id: 9,
-      question: &quot;Phân ly kép (double dissociation) là gì?&quot;,
-      options: [
-        &quot;A. Một phương pháp nghiên cứu não bộ bằng fMRI&quot;,
-        &quot;B. Tổn thương một vùng não khiến có chức năng A nhưng thiếu chức năng B, và ngược lại&quot;,
-        &quot;C. Kỹ thuật ghi lại hoạt động của TBTK đơn lẻ&quot;,
-        &quot;D. Phương pháp nhuộm mô não&quot;
+      q: "Phân ly kép (double dissociation) là gì?",
+      a: [
+        "A. Một phương pháp nghiên cứu não bộ bằng fMRI",
+        "B. Tổn thương một vùng não khiến có chức năng A nhưng thiếu chức năng B, và ngược lại",
+        "C. Kỹ thuật ghi lại hoạt động của neuron đơn lẻ",
+        "D. Phương pháp nhuộm mô não"
       ],
       correct: 1,
-      explanation: &quot;Phân ly kép chứng minh sự cục bộ hóa chức năng: tổn thương vùng não này có chức năng A thiếu B, tổn thương vùng khác thiếu A có B.&quot;
+      explain: "Phân ly kép: tổn thương hai vùng → thiếu hai chức năng khác nhau."
     },
     {
-      id: 10,
-      question: &quot;FFA (Fusiform Face Area) có chức năng gì?&quot;,
-      options: [
-        &quot;A. Nhận diện nơi chốn&quot;,
-        &quot;B. Nhận diện gương mặt&quot;,
-        &quot;C. Nhận diện cơ thể&quot;,
-        &quot;D. Xử lý âm thanh&quot;
+      q: "FFA (Fusiform Face Area) có chức năng gì?",
+      a: [
+        "A. Nhận diện nơi chốn",
+        "B. Nhận diện gương mặt",
+        "C. Nhận diện cơ thể",
+        "D. Xử lý âm thanh"
       ],
       correct: 1,
-      explanation: &quot;FFA (Fusiform face area) là vùng chuyên biệt trong nhận diện gương mặt, được phát hiện qua nghiên cứu hình ảnh não.&quot;
+      explain: "FFA: nhận diện khuôn mặt, phát hiện qua fMRI."
     },
     {
-      id: 11,
-      question: &quot;fMRI hoạt động dựa trên nguyên lý nào?&quot;,
-      options: [
-        &quot;A. Đo hoạt động điện của não&quot;,
-        &quot;B. Đo lưu lượng máu và mức tiêu thụ oxy trong não&quot;,
-        &quot;C. Đo sóng âm thanh từ não&quot;,
-        &quot;D. Đo nhiệt độ của não&quot;
+      q: "fMRI hoạt động dựa trên nguyên lý nào?",
+      a: [
+        "A. Đo hoạt động điện của não",
+        "B. Đo lưu lượng máu và mức tiêu thụ oxy trong não",
+        "C. Đo sóng âm thanh từ não",
+        "D. Đo nhiệt độ của não"
       ],
       correct: 1,
-      explanation: &quot;fMRI hoạt động dựa trên việc hoạt động não tăng → tiêu thụ oxy tăng → lưu lượng máu tăng → thay đổi tín hiệu MRI.&quot;
+      explain: "fMRI đo lưu lượng máu (oxygen) khi não hoạt động."
     },
     {
-      id: 12,
-      question: &quot;Thực nghiệm của Blackmore và Cooper (1970) chứng minh điều gì?&quot;,
-      options: [
-        &quot;A. Tính mềm dẻo phụ thuộc vào kinh nghiệm của hệ thần kinh&quot;,
-        &quot;B. Sự tồn tại của synapse&quot;,
-        &quot;C. Nguyên lý hoạt động của fMRI&quot;,
-        &quot;D. Cấu trúc của tế bào thần kinh&quot;
+      q: "Thực nghiệm của Blackmore và Cooper (1970) chứng minh điều gì?",
+      a: [
+        "A. Tính mềm dẻo phụ thuộc vào kinh nghiệm của hệ thần kinh",
+        "B. Sự tồn tại của synapse",
+        "C. Nguyên lý hoạt động của fMRI",
+        "D. Cấu trúc của tế bào thần kinh"
       ],
       correct: 0,
-      explanation: &quot;Thực nghiệm nuôi mèo con trong môi trường chỉ có chiều ngang/dọc chứng minh tính mềm dẻo phụ thuộc vào kinh nghiệm (experience-dependent plasticity).&quot;
+      explain: "Mèo con lớn lên chỉ nhận biết chiều ngang/dọc do não thích nghi môi trường."
     },
     {
-      id: 13,
-      question: &quot;Đại diện phân tán có đặc điểm gì?&quot;,
-      options: [
-        &quot;A. Chỉ một vùng não hoạt động&quot;,
-        &quot;B. Nhiều vùng não khác nhau cùng hoạt động&quot;,
-        &quot;C. Không có vùng não nào hoạt động&quot;,
-        &quot;D. Chỉ vỏ não hoạt động&quot;
+      q: "Đại diện phân tán có đặc điểm gì?",
+      a: [
+        "A. Chỉ một vùng não hoạt động",
+        "B. Nhiều vùng não khác nhau cùng hoạt động",
+        "C. Không có vùng não nào hoạt động",
+        "D. Chỉ vỏ não hoạt động"
       ],
       correct: 1,
-      explanation: &quot;Đại diện phân tán có nghĩa là trải nghiệm đa chiều, kích hoạt nhiều phần khác nhau của não bộ, không chỉ cục bộ một chức năng.&quot;
+      explain: "Đại diện phân tán: trải nghiệm kích hoạt nhiều vùng não."
     },
     {
-      id: 14,
-      question: &quot;Mạng lưới chế độ mặc định (DMN) hoạt động khi nào?&quot;,
-      options: [
-        &quot;A. Khi thực hiện nhiệm vụ phức tạp&quot;,
-        &quot;B. Khi không thực hiện nhiệm vụ cụ thể nào&quot;,
-        &quot;C. Khi ngủ&quot;,
-        &quot;D. Khi tập trung cao độ&quot;
+      q: "Mạng lưới chế độ mặc định (DMN) hoạt động khi nào?",
+      a: [
+        "A. Khi thực hiện nhiệm vụ phức tạp",
+        "B. Khi không thực hiện nhiệm vụ cụ thể nào",
+        "C. Khi ngủ",
+        "D. Khi tập trung cao độ"
       ],
       correct: 1,
-      explanation: &quot;DMN (Default Mode Network) là mạng lưới các cấu trúc hoạt động khi một người không thực hiện nhiệm vụ nào, liên quan đến tâm trí lang thang.&quot;
+      explain: "DMN hoạt động khi tâm trí 'lang thang', không làm nhiệm vụ cụ thể."
     },
     {
-      id: 15,
-      question: &quot;Connectome là gì?&quot;,
-      options: [
-        &quot;A. Một loại máy quét não&quot;,
-        &quot;B. Bản mô tả cấu trúc mạng lưới kết nối của não bộ&quot;,
-        &quot;C. Một loại tế bào thần kinh&quot;,
-        &quot;D. Phần mềm phân tích dữ liệu não&quot;
+      q: "Connectome là gì?",
+      a: [
+        "A. Một loại máy quét não",
+        "B. Bản mô tả cấu trúc mạng lưới kết nối của não bộ",
+        "C. Một loại tế bào thần kinh",
+        "D. Phần mềm phân tích dữ liệu não"
       ],
       correct: 1,
-      explanation: &quot;Connectome là &#x27;bản mô tả cấu trúc của mạng lưới các yếu tố và các kết nối hình thành nên não bộ&#x27; hay &#x27;sơ đồ dây nối&#x27; của não bộ.&quot;
+      explain: "Connectome: bản đồ mạng lưới neuron của não."
     },
     {
-      id: 16,
-      question: &quot;Prosopagnosia là hội chứng gì?&quot;,
-      options: [
-        &quot;A. Mất khả năng nói&quot;,
-        &quot;B. Mất khả năng nhận diện gương mặt&quot;,
-        &quot;C. Mất khả năng nhớ&quot;,
-        &quot;D. Mất khả năng nghe&quot;
+      q: "Prosopagnosia là hội chứng gì?",
+      a: [
+        "A. Mất khả năng nói",
+        "B. Mất khả năng nhận diện gương mặt",
+        "C. Mất khả năng nhớ",
+        "D. Mất khả năng nghe"
       ],
       correct: 1,
-      explanation: &quot;Prosopagnosia là hội chứng tổn thương chức năng thị giác do tổn thương ở thùy thái dương, khiến không thể nhận diện được gương mặt.&quot;
+      explain: "Prosopagnosia: không nhận diện được mặt người."
     },
     {
-      id: 17,
-      question: &quot;Xử lý phân cấp (hierarchical processing) trong thị giác theo thứ tự nào?&quot;,
-      options: [
-        &quot;A. Phức tạp → đơn giản → rất phức tạp&quot;,
-        &quot;B. Đơn giản → phức tạp → rất phức tạp&quot;, 
-        &quot;C. Chỉ xử lý ở một mức độ&quot;,
-        &quot;D. Ngẫu nhiên&quot;
+      q: "Xử lý phân cấp (hierarchical processing) trong thị giác theo thứ tự nào?",
+      a: [
+        "A. Phức tạp → đơn giản → rất phức tạp",
+        "B. Đơn giản → phức tạp → rất phức tạp",
+        "C. Chỉ xử lý ở một mức độ",
+        "D. Ngẫu nhiên"
       ],
       correct: 1,
-      explanation: &quot;Xử lý phân cấp: kích thích đơn giản (hướng, chuyển động) → kích thích phức tạp (hình bàn tay) → rất phức tạp (gương mặt).&quot;
+      explain: "Kích thích đơn giản → phức tạp hơn → rất phức tạp."
     },
     {
-      id: 18,
-      question: &quot;Kỹ thuật TWI (track-weighted imaging) được sử dụng để nghiên cứu gì?&quot;,
-      options: [
-        &quot;A. Hoạt động điện của não&quot;,
-        &quot;B. Kết nối cấu trúc của não dựa trên sự khuếch tán nước&quot;,
-        &quot;C. Hoạt động chức năng của não&quot;,
-        &quot;D. Nhiệt độ não&quot;
+      q: "Kỹ thuật TWI (track-weighted imaging) được sử dụng để nghiên cứu gì?",
+      a: [
+        "A. Hoạt động điện của não",
+        "B. Kết nối cấu trúc của não dựa trên sự khuếch tán nước",
+        "C. Hoạt động chức năng của não",
+        "D. Nhiệt độ não"
       ],
       correct: 1,
-      explanation: &quot;TWI dựa trên cách nước khuếch tán dọc theo sợi trục để mô tả kết nối cấu trúc của não, tạo ra &#x27;connectome&#x27;.&quot;
+      explain: "TWI dựng bản đồ connectome dựa trên khuếch tán nước."
     }
   ];
 
-  const handleAnswerSelect = (answerIndex) =&gt; {
-    if (showResult) return;
-    setSelectedAnswer(answerIndex);
-  };
-
-  const handleSubmitAnswer = () =&gt; {
-    if (selectedAnswer === null) return;
-    
-    const isCorrect = selectedAnswer === questions[currentQuestion].correct;
-    if (isCorrect) {
-      setScore(score + 1);
+  // Shuffle function (Fisher-Yates)
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-    
-    setAnsweredQuestions([...answeredQuestions, {
-      question: currentQuestion,
-      selected: selectedAnswer,
-      correct: questions[currentQuestion].correct,
-      isCorrect
-    }]);
-    
-    setShowResult(true);
-  };
+  }
+  let quizState = {questions: [], selected: [], answered: false, score: 0};
 
-  const handleNextQuestion = () =&gt; {
-    if (currentQuestion &lt; questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
-    } else {
-      setGameCompleted(true);
-    }
-  };
-
-  const handleRestart = () =&gt; {
-    setCurrentQuestion(0);
-    setScore(0);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    setGameCompleted(false);
-    setAnsweredQuestions([]);
-  };
-
-  const getScoreColor = () =&gt; {
-    const percentage = (score / questions.length) * 100;
-    if (percentage &gt;= 80) return &#x27;text-green-600&#x27;;
-    if (percentage &gt;= 60) return &#x27;text-yellow-600&#x27;;
-    return &#x27;text-red-600&#x27;;
-  };
-
-  const getScoreMessage = () =&gt; {
-    const percentage = (score / questions.length) * 100;
-    if (percentage &gt;= 90) return &#x27;Xuất sắc! Bạn đã thành thạo về khoa học thần kinh nhận thức! 🧠✨&#x27;;
-    if (percentage &gt;= 80) return &#x27;Rất tốt! Bạn có hiểu biết vững chắc về tâm lý học nhận thức! 👏&#x27;;
-    if (percentage &gt;= 70) return &#x27;Khá tốt! Hãy ôn lại một số khái niệm để hiểu rõ hơn! 📚&#x27;;
-    if (percentage &gt;= 60) return &#x27;Bạn đã nắm được cơ bản, nhưng cần học thêm! 💪&#x27;;
-    return &#x27;Hãy đọc lại tài liệu và thử lại nhé! Kiến thức não bộ rất thú vị đấy! 🤓&#x27;;
-  };
-
-  if (gameCompleted) {
-    return (
-      &lt;div className=&quot;max-w-4xl mx-auto p-6 bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen&quot;&gt;
-        &lt;Card className=&quot;w-full bg-white shadow-2xl border-0&quot;&gt;
-          &lt;CardHeader className=&quot;text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg&quot;&gt;
-            &lt;div className=&quot;flex items-center justify-center mb-4&quot;&gt;
-              &lt;Award className=&quot;w-16 h-16 text-yellow-300&quot; /&gt;
-            &lt;/div&gt;
-            &lt;CardTitle className=&quot;text-2xl font-bold&quot;&gt;Hoàn thành bài kiểm tra!&lt;/CardTitle&gt;
-          &lt;/CardHeader&gt;
-          &lt;CardContent className=&quot;p-8 text-center&quot;&gt;
-            &lt;div className=&quot;mb-6&quot;&gt;
-              &lt;h2 className={`text-6xl font-bold ${getScoreColor()} mb-4`}&gt;
-                {score}/{questions.length}
-              &lt;/h2&gt;
-              &lt;p className=&quot;text-xl text-gray-600 mb-4&quot;&gt;
-                Điểm số: {Math.round((score / questions.length) * 100)}%
-              &lt;/p&gt;
-              &lt;p className=&quot;text-lg text-gray-700 mb-6&quot;&gt;
-                {getScoreMessage()}
-              &lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 gap-4 mb-8&quot;&gt;
-              &lt;div className=&quot;bg-blue-50 p-4 rounded-lg&quot;&gt;
-                &lt;div className=&quot;flex items-center justify-center mb-2&quot;&gt;
-                  &lt;CheckCircle className=&quot;w-6 h-6 text-green-600 mr-2&quot; /&gt;
-                  &lt;span className=&quot;font-semibold text-green-700&quot;&gt;Câu trả lời đúng&lt;/span&gt;
-                &lt;/div&gt;
-                &lt;p className=&quot;text-2xl font-bold text-green-600&quot;&gt;{score}&lt;/p&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;bg-red-50 p-4 rounded-lg&quot;&gt;
-                &lt;div className=&quot;flex items-center justify-center mb-2&quot;&gt;
-                  &lt;XCircle className=&quot;w-6 h-6 text-red-600 mr-2&quot; /&gt;
-                  &lt;span className=&quot;font-semibold text-red-700&quot;&gt;Câu trả lời sai&lt;/span&gt;
-                &lt;/div&gt;
-                &lt;p className=&quot;text-2xl font-bold text-red-600&quot;&gt;{questions.length - score}&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-
-            &lt;button
-              onClick={handleRestart}
-              className=&quot;bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 flex items-center mx-auto&quot;
-            &gt;
-              &lt;RefreshCw className=&quot;w-5 h-5 mr-2&quot; /&gt;
-              Chơi lại
-            &lt;/button&gt;
-          &lt;/CardContent&gt;
-        &lt;/Card&gt;
-      &lt;/div&gt;
-    );
+  function renderQuiz() {
+    const qWrap = document.getElementById('quiz-questions');
+    let questions = JSON.parse(JSON.stringify(quizQuestionsRaw)); // deep copy
+    shuffleArray(questions); // shuffle questions
+    questions.forEach(q => shuffleArray(q.a)); // shuffle answers
+    quizState.questions = questions;
+    quizState.selected = Array(questions.length).fill(null);
+    quizState.answered = false;
+    quizState.score = 0;
+    let html = '';
+    questions.forEach((q, idx) => {
+      html += `
+      <div class="question" id="q${idx}">
+        <h4>Câu ${idx+1}: ${q.q}</h4>
+        <ul class="options" id="opt${idx}">
+          ${q.a.map((opt, oid) => `<li onclick="selectAnswer(${idx},${oid})">${opt}</li>`).join('')}
+        </ul>
+        <div class="explain" id="exp${idx}" style="display:none; margin-top:6px; font-size:0.98em;"></div>
+      </div>
+      `;
+    });
+    qWrap.innerHTML = html;
+    document.getElementById('finalScore').innerHTML = '';
   }
 
-  return (
-    &lt;div className=&quot;max-w-4xl mx-auto p-6 bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen&quot;&gt;
-      &lt;Card className=&quot;w-full bg-white shadow-2xl border-0&quot;&gt;
-        &lt;CardHeader className=&quot;bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg&quot;&gt;
-          &lt;div className=&quot;flex items-center justify-between&quot;&gt;
-            &lt;div className=&quot;flex items-center&quot;&gt;
-              &lt;Brain className=&quot;w-8 h-8 mr-3 text-blue-200&quot; /&gt;
-              &lt;div&gt;
-                &lt;CardTitle className=&quot;text-xl font-bold&quot;&gt;Khoa Học Thần Kinh Nhận Thức&lt;/CardTitle&gt;
-                &lt;p className=&quot;text-blue-200 text-sm&quot;&gt;Tâm Lý Học Nhận Thức - Chương 2&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div className=&quot;text-right&quot;&gt;
-              &lt;div className=&quot;flex items-center&quot;&gt;
-                &lt;Zap className=&quot;w-5 h-5 mr-1 text-yellow-300&quot; /&gt;
-                &lt;span className=&quot;font-semibold&quot;&gt;{score}/{questions.length}&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;p className=&quot;text-blue-200 text-sm&quot;&gt;
-                Câu {currentQuestion + 1}/{questions.length}
-              &lt;/p&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/CardHeader&gt;
+  function selectAnswer(qIdx, optIdx) {
+    if (quizState.answered) return;
+    quizState.selected[qIdx] = optIdx;
+    let ul = document.getElementById('opt'+qIdx);
+    Array.from(ul.children).forEach((li,i) => {
+      li.classList.remove('selected');
+      if(i===optIdx) li.classList.add('selected');
+    });
+  }
 
-        &lt;CardContent className=&quot;p-8&quot;&gt;
-          &lt;div className=&quot;mb-6&quot;&gt;
-            &lt;div className=&quot;flex justify-between items-center mb-4&quot;&gt;
-              &lt;span className=&quot;text-sm font-medium text-gray-500&quot;&gt;Tiến độ&lt;/span&gt;
-              &lt;span className=&quot;text-sm font-medium text-gray-500&quot;&gt;
-                {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
-              &lt;/span&gt;
-            &lt;/div&gt;
-            &lt;div className=&quot;w-full bg-gray-200 rounded-full h-2&quot;&gt;
-              &lt;div 
-                className=&quot;bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300&quot;
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-              &gt;&lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          &lt;div className=&quot;mb-8&quot;&gt;
-            &lt;h2 className=&quot;text-xl font-semibold text-gray-800 mb-6 leading-relaxed&quot;&gt;
-              {questions[currentQuestion].question}
-            &lt;/h2&gt;
-
-            &lt;div className=&quot;space-y-3&quot;&gt;
-              {questions[currentQuestion].options.map((option, index) =&gt; (
-                &lt;button
-                  key={index}
-                  onClick={() =&gt; handleAnswerSelect(index)}
-                  disabled={showResult}
-                  className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
-                    showResult
-                      ? index === questions[currentQuestion].correct
-                        ? &#x27;border-green-500 bg-green-50 text-green-800&#x27;
-                        : index === selectedAnswer &amp;&amp; index !== questions[currentQuestion].correct
-                        ? &#x27;border-red-500 bg-red-50 text-red-800&#x27;
-                        : &#x27;border-gray-200 bg-gray-50 text-gray-600&#x27;
-                      : selectedAnswer === index
-                      ? &#x27;border-blue-500 bg-blue-50 text-blue-800 transform scale-[1.02]&#x27;
-                      : &#x27;border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:transform hover:scale-[1.01]&#x27;
-                  }`}
-                &gt;
-                  &lt;div className=&quot;flex items-center&quot;&gt;
-                    &lt;div className={`w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center ${
-                      showResult &amp;&amp; index === questions[currentQuestion].correct
-                        ? &#x27;border-green-500 bg-green-500&#x27;
-                        : showResult &amp;&amp; index === selectedAnswer &amp;&amp; index !== questions[currentQuestion].correct
-                        ? &#x27;border-red-500 bg-red-500&#x27;
-                        : selectedAnswer === index
-                        ? &#x27;border-blue-500 bg-blue-500&#x27;
-                        : &#x27;border-gray-300&#x27;
-                    }`}&gt;
-                      {showResult &amp;&amp; index === questions[currentQuestion].correct &amp;&amp; (
-                        &lt;CheckCircle className=&quot;w-4 h-4 text-white&quot; /&gt;
-                      )}
-                      {showResult &amp;&amp; index === selectedAnswer &amp;&amp; index !== questions[currentQuestion].correct &amp;&amp; (
-                        &lt;XCircle className=&quot;w-4 h-4 text-white&quot; /&gt;
-                      )}
-                      {selectedAnswer === index &amp;&amp; !showResult &amp;&amp; (
-                        &lt;div className=&quot;w-3 h-3 bg-white rounded-full&quot;&gt;&lt;/div&gt;
-                      )}
-                    &lt;/div&gt;
-                    &lt;span className=&quot;font-medium&quot;&gt;{option}&lt;/span&gt;
-                  &lt;/div&gt;
-                &lt;/button&gt;
-              ))}
-            &lt;/div&gt;
-          &lt;/div&gt;
-
-          {showResult &amp;&amp; (
-            &lt;div className=&quot;mb-6 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500&quot;&gt;
-              &lt;h3 className=&quot;font-semibold text-gray-800 mb-2 flex items-center&quot;&gt;
-                &lt;Eye className=&quot;w-5 h-5 mr-2 text-blue-600&quot; /&gt;
-                Giải thích:
-              &lt;/h3&gt;
-              &lt;p className=&quot;text-gray-700 leading-relaxed&quot;&gt;
-                {questions[currentQuestion].explanation}
-              &lt;/p&gt;
-            &lt;/div&gt;
-          )}
-
-          &lt;div className=&quot;flex justify-between&quot;&gt;
-            &lt;div className=&quot;flex items-center text-sm text-gray-500&quot;&gt;
-              &lt;Network className=&quot;w-4 h-4 mr-1&quot; /&gt;
-              Chương 2: Khoa học thần kinh nhận thức
-            &lt;/div&gt;
-            
-            {!showResult ? (
-              &lt;button
-                onClick={handleSubmitAnswer}
-                disabled={selectedAnswer === null}
-                className={`px-6 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                  selectedAnswer !== null
-                    ? &#x27;bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105&#x27;
-                    : &#x27;bg-gray-300 text-gray-500 cursor-not-allowed&#x27;
-                }`}
-              &gt;
-                Xác nhận
-              &lt;/button&gt;
-            ) : (
-              &lt;button
-                onClick={handleNextQuestion}
-                className=&quot;bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105&quot;
-              &gt;
-                {currentQuestion &lt; questions.length - 1 ? &#x27;Câu tiếp theo&#x27; : &#x27;Hoàn thành&#x27;}
-              &lt;/button&gt;
-            )}
-          &lt;/div&gt;
-        &lt;/CardContent&gt;
-      &lt;/Card&gt;
-    &lt;/div&gt;
-  );
-};
-
-export default CognitiveNeuroscienceGame;</code></pre>
+  function calculateScore() {
+    if (quizState.answered) return;
+    let score = 0;
+    quizState.questions.forEach((q, idx) => {
+      let picked = quizState.selected[idx];
+      // Need to map back to real correct after shuffle
+      let realCorrectText = quizQuestionsRaw.find(_q => _q.q === q.q).a[q.correct];
+      let pickedText = q.a[picked];
+      let realCorrectIdx = q.a.findIndex(opt => opt === realCorrectText);
+      let ul = document.getElementById('opt'+idx);
+      Array.from(ul.children).forEach((li,i) => {
+        li.classList.remove('correct','incorrect','selected');
+        if (i === realCorrectIdx) li.classList.add('correct');
+        else if (i === picked && picked !== realCorrectIdx) li.classList.add('incorrect');
+      });
+      if (picked === realCorrectIdx) score++;
+      // Show explanation
+      let expDiv = document.getElementById('exp'+idx);
+      expDiv.style.display='block';
+      expDiv.innerHTML = (picked===realCorrectIdx ? '✅ Đúng! ' : '❌ Sai. ') + q.explain;
+    });
+    quizState.answered = true;
+    quizState.score = score;
+    document.getElementById('finalScore').innerHTML = `<b>Kết quả: ${score}/${quizState.questions.length}</b> – ${(score/quizState.questions.length*100).toFixed(0)}%<br>${score>=15 ? '🌟 Xuất sắc!' : score>=12 ? '👍 Rất tốt!' : score>=9 ? '👌 Ổn, nên ôn thêm!' : '🧐 Hãy đọc lại tài liệu và thử lại!'}`;
+  }
+  function resetQuiz() {
+    renderQuiz();
+    quizState.answered = false;
+  }
+  // Initial render
+  renderQuiz();
+</script>
 </body>
 </html>
