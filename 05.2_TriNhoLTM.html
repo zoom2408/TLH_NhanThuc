@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>TLH Nhận thức: Trí nhớ dài hạn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            min-height: 100vh;
+            color: #222;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 25px; }
+        .header { text-align: center; margin-bottom: 35px; color: white; }
+        .header h1 { font-size: 2.7em; text-shadow: 2px 2px 4px rgba(0,0,0,0.25);}
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 22px; flex-wrap: wrap;}
+        .tab {
+            padding: 10px 25px; background: rgba(255,255,255,0.13);
+            border-radius: 20px; border: none; color: #fff; cursor: pointer;
+            font-weight: 500; transition: 0.2s;
+        }
+        .tab:hover, .tab.active {
+            background: rgba(255,255,255,0.25); box-shadow: 0 3px 12px rgba(0,0,0,0.09);
+            transform: translateY(-2px);
+        }
+        .content { background: rgba(255,255,255,0.97); border-radius: 20px; padding: 28px; box-shadow: 0 12px 36px rgba(0,0,0,0.08);}
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.45s ease;}
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(18px);} to {opacity: 1; transform: translateY(0);} }
+        .highlight { background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%); padding: 16px 18px; border-radius: 9px; margin: 18px 0; border-left: 4px solid #e17055;}
+        .experiment-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 13px; padding: 18px 24px; margin: 20px 0; box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+        }
+        .experiment-title { font-size: 1.18em; font-weight: bold; margin-bottom: 8px;}
+        .model-diagram { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); border-radius: 15px; padding: 20px; margin: 18px 0;}
+        .flow-step {
+            display: inline-block; background: white; padding: 10px 16px; margin: 7px;
+            border-radius: 7px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); position: relative;
+        }
+        .flow-step::after {
+            content: "→"; position: absolute; right: -19px; top: 50%;
+            transform: translateY(-50%); font-size: 1.1em; color: #666;
+        }
+        .flow-step:last-child::after { display: none; }
+        .practical-example {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px; padding: 16px; margin: 12px 0;
+        }
+        .quiz-container { margin-top: 28px;}
+        .question {
+            background: #fff; border-radius: 9px; padding: 16px; margin: 12px 0;
+            box-shadow: 0 3px 13px rgba(0,0,0,0.04); border-left: 4px solid #28a745;
+        }
+        .question h4 { margin-bottom: 12px; color: #185a9d; font-size: 1.04em;}
+        .options { list-style: none; padding: 0;}
+        .options li {
+            padding: 8px 12px; margin: 6px 0; background: #f8f9fa;
+            border-radius: 5px; cursor: pointer; transition: background 0.3s;
+        }
+        .options li:hover { background: #e9ecef; }
+        .demo-button {
+            background: linear-gradient(45deg, #43cea2, #185a9d);
+            color: white; border: none; padding: 10px 20px;
+            border-radius: 20px; cursor: pointer; font-size: 1em; font-weight: 500;
+            transition: 0.18s;
+        }
+        .demo-button:hover { transform: scale(1.05); box-shadow: 0 5px 12px rgba(0,0,0,0.14);}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🧠 Trí nhớ dài hạn<br>Cognitive Psychology Interactive</h1>
+        <p>Tổng hợp khái niệm, thí nghiệm, mô hình & luyện tập trắc nghiệm</p>
+    </div>
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('definitions')">Định nghĩa & Phân loại</button>
+        <button class="tab" onclick="showTab('experiments')">Thí nghiệm kinh điển</button>
+        <button class="tab" onclick="showTab('models')">Mô hình & Sơ đồ hóa</button>
+        <button class="tab" onclick="showTab('quiz')">Trắc nghiệm</button>
+    </div>
+    <div class="content">
+        <!-- Định nghĩa -->
+        <div id="definitions" class="tab-content active">
+            <h2>📚 Các khái niệm trọng tâm</h2>
+            <div class="highlight"><b>Trí nhớ dài hạn (Long-term memory – LTM)</b>: Hệ thống lưu trữ thông tin, sự kiện quá khứ, kiến thức đã học. LTM không đơn thuần là kho lưu trữ mà còn phối hợp với trí nhớ làm việc để xây dựng kinh nghiệm hiện tại.</div>
+            <ul>
+                <li><b>Trí nhớ rõ ràng/mô tả (Explicit/Declarative memory):</b> Nhớ có ý thức về sự kiện, kiến thức đã học.<br>
+                    <b>Tulving (1972)</b> phân biệt:<br>
+                    – <b>Nhớ tình tiết (Episodic):</b> Nhớ sự kiện, trải nghiệm cá nhân.<br>
+                    – <b>Nhớ ngữ nghĩa (Semantic):</b> Nhớ kiến thức, sự thật, khái niệm.</li>
+                <li><b>Trí nhớ ẩn (Implicit memory):</b> Ảnh hưởng của kinh nghiệm quá khứ tới hành vi mà không ý thức được.<br>
+                    – <b>Priming:</b> Gợi nhắc không ý thức.<br>
+                    – <b>Nhớ phương thức (Procedural):</b> Ghi nhớ kỹ năng thực hành (lái xe, buộc dây giày...).<br>
+                    – <b>Điều kiện hóa (Classical conditioning):</b> Kết hợp kích thích để tạo phản xạ.</li>
+            </ul>
+            <div class="highlight">
+                <b>Mã hóa (Encoding):</b> Quá trình đưa thông tin vào LTM.<br>
+                <b>Phục hồi (Retrieval):</b> Lấy thông tin đã mã hóa.<br>
+                <b>Nhẩm lại máy móc (Maintenance rehearsal):</b> Lặp lại đơn thuần.<br>
+                <b>Nhẩm lại ý nghĩa (Elaborative rehearsal):</b> Kết nối ý nghĩa với kiến thức đã có.
+            </div>
+        </div>
+        <!-- Thí nghiệm kinh điển -->
+      <div id="experiments" class="tab-content">
+  <h2 style="margin-bottom:24px;">⏳ Timeline các Thí nghiệm Kinh điển về Trí nhớ</h2>
+                  <div style="color:#636e72; font-size:0.98em; margin-left:22px;">
+    👉 <b>Nhấn vào tiêu đề từng thí nghiệm trên dòng thời gian để xem chi tiết & minh họa!</b>
+  </div>
+  <div id="timeline" style="position:relative; margin:0 10px 0 30px; padding-bottom:25px;">
+
+    <!-- Timeline axis -->
+
+    <div style="position:absolute; left:10px; top:10px; bottom:0; width:3px; background:linear-gradient(#185a9d,#43cea2);"></div>
+    <div class="timeline-event" data-index="0" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#fab1a0;">1932</div>
+      <div class="timeline-title" onclick="toggleDetail(0)">
+        Bartlett – <b>“Cuộc chiến các linh hồn”</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div style="margin:6px 0 10px 0;">
+          <b>Ý nghĩa:</b> Trí nhớ là quá trình kiến tạo, dễ bóp méo theo văn hóa cá nhân.<br>
+          <b>Mô tả:</b> Đọc truyện dân gian và kể lại – thông tin bị lược giản, thêm thắt.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="250" height="48">
+            <rect x="5" y="18" width="75" height="18" fill="#ffeaa7" rx="7"/>
+            <text x="43" y="32" text-anchor="middle" fill="#d35400" font-size="13">Truyện gốc</text>
+            <polygon points="85,27 125,27 125,21 145,34 125,47 125,41 85,41" fill="#636e72"/>
+            <rect x="145" y="18" width="90" height="18" fill="#fab1a0" rx="7"/>
+            <text x="190" y="32" text-anchor="middle" fill="#e17055" font-size="13">Trí nhớ cá nhân</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Trí nhớ bị thay đổi qua mỗi lần kể lại.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="1" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#81ecec;">1968</div>
+      <div class="timeline-title" onclick="toggleDetail(1)">
+        Warrington & Weiskrantz – <b>Priming & Korsakoff</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Trí nhớ ẩn hoạt động dù ý thức bị tổn thương.<br>
+          <b>Mô tả:</b> Bệnh nhân amnesia vẫn hoàn thành từ/câu bị thiếu nhờ “gợi ý tiềm ẩn”.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="180" height="52">
+            <rect x="5" y="17" width="40" height="20" fill="#b2bec3" rx="5"/>
+            <text x="25" y="32" text-anchor="middle" fill="#636e72" font-size="14">Pr _ _ um</text>
+            <rect x="70" y="17" width="40" height="20" fill="#00b894" rx="5"/>
+            <text x="90" y="32" text-anchor="middle" fill="#fff" font-size="14">Perfume</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Hoàn thành từ nhờ priming dù không nhớ đã học.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="2" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#ffeaa7;">1970</div>
+      <div class="timeline-title" onclick="toggleDetail(2)">
+        Bower & Winzenz – <b>Imagery (Hình ảnh hóa)</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Tưởng tượng hình ảnh giúp nhớ tốt hơn lặp lại máy móc.<br>
+          <b>Mô tả:</b> Nhóm hình dung cặp từ (thuyền-cây) nhớ gấp đôi nhóm chỉ nhẩm.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="220" height="44">
+            <ellipse cx="55" cy="22" rx="38" ry="14" fill="#00b894" opacity="0.18"/>
+            <ellipse cx="165" cy="22" rx="38" ry="14" fill="#fdcb6e" opacity="0.18"/>
+            <text x="55" y="26" text-anchor="middle" fill="#00b894" font-size="15">Thuyền</text>
+            <text x="165" y="26" text-anchor="middle" fill="#e17055" font-size="15">Cây</text>
+            <line x1="93" y1="22" x2="127" y2="22" stroke="#636e72" stroke-width="2" marker-end="url(#arrow)"/>
+            <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#636e72" /></marker></defs>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Liên tưởng hình ảnh giúp kết nối và ghi nhớ sâu.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="3" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#fdcb6e;">1972</div>
+      <div class="timeline-title" onclick="toggleDetail(3)">
+        Craik & Lockhart – <b>Levels of Processing</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Xử lý sâu (ý nghĩa) giúp nhớ lâu hơn xử lý nông (vật lý, âm vần).<br>
+          <b>Mô tả:</b> Hỏi về đặc tính từ/câu để so sánh khả năng ghi nhớ.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="310" height="56">
+            <rect x="7" y="17" width="70" height="24" fill="#fab1a0" rx="7"/>
+            <text x="42" y="33" text-anchor="middle" fill="#2d3436" font-size="13">Vật lý</text>
+            <rect x="92" y="17" width="70" height="24" fill="#ffeaa7" rx="7"/>
+            <text x="127" y="33" text-anchor="middle" fill="#636e72" font-size="13">Âm vần</text>
+            <rect x="177" y="17" width="70" height="24" fill="#55efc4" rx="7"/>
+            <text x="212" y="33" text-anchor="middle" fill="#098" font-size="13">Ý nghĩa</text>
+            <rect x="262" y="17" width="37" height="24" fill="#00b894" rx="7"/>
+            <text x="281" y="33" text-anchor="middle" fill="#fff" font-size="13">Nhớ lâu</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Xử lý sâu giúp nhớ bền vững nhất.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="4" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#a29bfe;">1975</div>
+      <div class="timeline-title" onclick="toggleDetail(4)">
+        Craik & Tulving – <b>Đặt từ trong câu phức tạp</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Câu càng phức tạp và sinh động càng dễ nhớ.<br>
+          <b>Mô tả:</b> “Cô ấy đang nấu con gà” <span style="color:#636e72;">vs.</span> “Chim lớn sà xuống và gắp con gà bay mất”.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="230" height="46">
+            <rect x="5" y="14" width="90" height="20" fill="#ffeaa7" rx="6"/>
+            <text x="50" y="29" text-anchor="middle" fill="#d35400" font-size="13">Câu đơn giản</text>
+            <rect x="125" y="14" width="100" height="20" fill="#fab1a0" rx="6"/>
+            <text x="175" y="29" text-anchor="middle" fill="#e17055" font-size="13">Câu phức tạp, hình ảnh</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Câu sinh động tạo nhiều liên kết, nhớ tốt hơn.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="5" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#00b894;">1977</div>
+      <div class="timeline-title" onclick="toggleDetail(5)">
+        Morris et al. – <b>Transfer Appropriate Processing</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Nhớ tốt nhất khi loại mã hóa phù hợp với loại kiểm tra.<br>
+          <b>Mô tả:</b> Học bằng âm vần – kiểm tra bằng âm vần sẽ tốt hơn.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="210" height="44">
+            <rect x="5" y="15" width="70" height="20" fill="#81ecec" rx="6"/>
+            <text x="40" y="30" text-anchor="middle" fill="#098" font-size="13">Mã hóa</text>
+            <polygon points="80,25 130,25 130,20 145,32 130,44 130,39 80,39" fill="#636e72"/>
+            <rect x="145" y="15" width="60" height="20" fill="#fab1a0" rx="6"/>
+            <text x="175" y="30" text-anchor="middle" fill="#e17055" font-size="13">Kiểm tra</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Mã hóa & kiểm tra tương thích → nhớ tốt hơn.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="6" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#fd79a8;">1979</div>
+      <div class="timeline-title" onclick="toggleDetail(6)">
+        Rogers et al. – <b>Self-reference effect</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Liên hệ từ với bản thân giúp nhớ gấp 3 lần.<br>
+          <b>Mô tả:</b> Hỏi từ có mô tả chính mình không.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="170" height="44">
+            <ellipse cx="45" cy="22" rx="25" ry="14" fill="#fdcb6e" opacity="0.24"/>
+            <text x="45" y="26" text-anchor="middle" fill="#e17055" font-size="14">Từ mới</text>
+            <line x1="70" y1="22" x2="145" y2="22" stroke="#636e72" stroke-width="2" marker-end="url(#arrow2)"/>
+            <ellipse cx="145" cy="22" rx="17" ry="14" fill="#00b894" opacity="0.26"/>
+            <text x="145" y="26" text-anchor="middle" fill="#098" font-size="14">Bản thân</text>
+            <defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#636e72" /></marker></defs>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Liên hệ bản thân giúp ghi nhớ sâu sắc.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="7" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#636e72;">1986</div>
+      <div class="timeline-title" onclick="toggleDetail(7)">
+        Mantyla – <b>Retrieval cue</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Gợi ý do chính mình tạo ra giúp phục hồi thông tin tốt nhất.<br>
+          <b>Mô tả:</b> 3 từ khoá cho mỗi danh từ – tự tạo gợi ý giúp nhớ tới 90%.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="185" height="46">
+            <ellipse cx="35" cy="23" rx="23" ry="14" fill="#55efc4" opacity="0.23"/>
+            <text x="35" y="27" text-anchor="middle" fill="#098" font-size="14">Từ khoá</text>
+            <line x1="60" y1="23" x2="160" y2="23" stroke="#636e72" stroke-width="2" marker-end="url(#arrow3)"/>
+            <ellipse cx="160" cy="23" rx="20" ry="14" fill="#fab1a0" opacity="0.22"/>
+            <text x="160" y="27" text-anchor="middle" fill="#e17055" font-size="14">Từ gốc</text>
+            <defs><marker id="arrow3" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#636e72" /></marker></defs>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Tự tạo gợi ý – nhớ gần như tuyệt đối!</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="8" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#00b894;">1975–1988</div>
+      <div class="timeline-title" onclick="toggleDetail(8)">
+        Godden & Baddeley (1975), Grant et al. (1988) – <b>Phù hợp bối cảnh</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Học và kiểm tra ở cùng môi trường sẽ nhớ tốt hơn.<br>
+          <b>Mô tả:</b> Học dưới nước – kiểm tra dưới nước hiệu quả hơn học dưới nước – kiểm tra trên cạn.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="250" height="60">
+            <rect x="15" y="25" width="60" height="24" fill="#74b9ff" rx="7"/>
+            <text x="45" y="42" text-anchor="middle" fill="#fff" font-size="13">Dưới nước</text>
+            <rect x="95" y="25" width="60" height="24" fill="#fdcb6e" rx="7"/>
+            <text x="125" y="42" text-anchor="middle" fill="#2d3436" font-size="13">Trên cạn</text>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Cùng bối cảnh = tăng khả năng phục hồi trí nhớ.</div>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-index="9" style="margin-bottom: 35px;">
+      <div class="timeline-dot" style="background:#fab1a0;">1989–1995</div>
+      <div class="timeline-title" onclick="toggleDetail(9)">
+        Eric & Metcalfe (1989), Eich (1995) – <b>Phù hợp tâm trạng</b>
+      </div>
+      <div class="timeline-detail" style="display:none;">
+        <div>
+          <b>Ý nghĩa:</b> Tâm trạng học giống tâm trạng kiểm tra giúp phục hồi tốt hơn.<br>
+          <b>Mô tả:</b> Vui học – vui kiểm tra, kết quả cao hơn.<br>
+        </div>
+        <div style="text-align:center;">
+          <svg width="170" height="46">
+            <ellipse cx="55" cy="23" rx="25" ry="14" fill="#fdcb6e" opacity="0.24"/>
+            <ellipse cx="120" cy="23" rx="25" ry="14" fill="#00b894" opacity="0.24"/>
+            <text x="55" y="27" text-anchor="middle" fill="#e17055" font-size="14">Vui học</text>
+            <text x="120" y="27" text-anchor="middle" fill="#098" font-size="14">Vui kiểm tra</text>
+            <line x1="80" y1="23" x2="110" y2="23" stroke="#636e72" stroke-width="2" marker-end="url(#arrow4)"/>
+            <defs><marker id="arrow4" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#636e72" /></marker></defs>
+          </svg>
+        </div>
+        <div style="text-align:center; color:#636e72;">Tâm trạng đồng nhất tăng xác suất nhớ.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Timeline interactive toggle
+  function toggleDetail(index) {
+    document.querySelectorAll('.timeline-detail').forEach((el, idx) => {
+      if(idx === index) {
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }
+</script>
+<style>
+  /* Timeline visual styles */
+  #timeline { margin-bottom: 28px; }
+  .timeline-dot {
+    position: absolute;
+    left: -32px;
+    width: 48px; height: 28px; border-radius: 14px;
+    color: #222; text-align: center; line-height: 28px; font-weight: bold;
+    font-size: 1.05em; box-shadow: 0 1px 4px rgba(0,0,0,0.12); border:2px solid #fff;
+    z-index: 2;
+  }
+  .timeline-title {
+    margin-left: 30px; padding: 10px 0 8px 0; font-size: 1.1em; font-weight: bold;
+    color: #185a9d; cursor: pointer; transition: color 0.14s;
+  }
+  .timeline-title:hover { color: #43cea2; text-decoration: underline;}
+  .timeline-detail {
+    background: #f4f9fc; border-left: 4px solid #43cea2; border-radius: 0 11px 11px 0;
+    margin-left: 30px; margin-top: -2px; margin-bottom: 12px; padding: 12px 18px 12px 18px;
+    box-shadow: 0 2px 9px rgba(24,90,157,0.07);
+    animation: fadeIn 0.45s;
+  }
+</style>
+
+        <!-- Mô hình & Sơ đồ -->
+        <div id="models" class="tab-content">
+    <h2>🏗️ Mô hình & Lưu đồ hóa</h2>
+
+    <div class="model-diagram">
+        <h3>🌿 Sơ đồ quá trình lưu trữ & phục hồi trong LTM</h3>
+        <div style="margin-bottom:7px;"><i>(Tổng hợp từ nhiều mô hình: Atkinson & Shiffrin, Tulving, Baddeley...)</i></div>
+        <div class="flow-step">Thông tin vào</div>
+        <div class="flow-step">Mã hóa (Encoding)</div>
+        <div class="flow-step">Lưu trữ (Storage – LTM)</div>
+        <div class="flow-step">Phục hồi (Retrieval)</div>
+        <div class="practical-example">
+            <b>Ví dụ:</b> Bạn nghe một số điện thoại, nhẩm lại (mã hóa), lưu vào trí nhớ dài hạn. Khi cần gọi lại, bạn cố nhớ số (phục hồi).
+        </div>
+    </div>
+
+    <div class="highlight">
+        <b>Levels of Processing</b> (Craik & Lockhart, 1972; Craik & Tulving, 1975):<br>
+        – Xử lý nông: chú ý đặc tính vật lý.<br>
+        – Xử lý sâu: gắn với ý nghĩa, liên hệ cá nhân → Nhớ lâu.
+        <div class="practical-example" style="margin-top:8px;">
+            <b>Ví dụ:</b> Học từ “bàn” – nếu chỉ nhìn mặt chữ là nông, còn nếu liên hệ “bàn là nơi mình ngồi học” là sâu.
+        </div>
+    </div>
+
+    <div class="model-diagram">
+        <h3>🎯 Các yếu tố tăng khả năng nhớ</h3>
+        <div style="margin-bottom:7px;"><i>(Tổng hợp từ các thí nghiệm Bower & Winzenz 1970, Rogers et al. 1979, Tulving & Pearlstone 1966,...)</i></div>
+        <div class="flow-step">Gắn ý nghĩa</div>
+        <div class="flow-step">Hình ảnh hóa</div>
+        <div class="flow-step">Tổ chức thông tin</div>
+        <div class="flow-step">Liên hệ bản thân</div>
+        <div class="flow-step">Gợi ý phục hồi</div>
+        <div class="practical-example">
+            <b>Ví dụ:</b> Khi cần nhớ một danh sách từ, bạn nhóm các từ thành nhóm nghĩa (quần áo, hoa quả...), tưởng tượng hình ảnh các vật đó, hoặc liên hệ với trải nghiệm cá nhân (từ nào gợi nhớ kỷ niệm).
+        </div>
+    </div>
+</div>
+
+        <!-- Quiz -->
+        <div id="quiz" class="tab-content">
+            <h2>📝 Trắc nghiệm ôn tập (nhấn đáp án đúng)</h2>
+            <div class="quiz-container" id="quiz-questions"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="demo-button" onclick="calculateScore()">Tính điểm</button>
+                <button class="demo-button" style="margin-left:10px;" onclick="resetQuiz()">Làm lại</button>
+                <div id="finalScore" style="margin-top: 15px; font-size: 1.2em; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Tabs
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+        if (tabName === 'quiz') resetQuiz();
+    }
+
+    // --- Quiz data (20+ questions from PDF, experiments & key theory, shuffling enabled) ---
+    const quizQuestions = [
+        {
+            q: "Theo Tulving (1972), trí nhớ rõ ràng (explicit) gồm những loại nào?",
+            a: [
+                "A. Episodic và Semantic",
+                "B. Procedural và Priming",
+                "C. Maintenance và Elaborative",
+                "D. Classical và Operant"
+            ],
+            correct: 0
+        },
+        {
+            q: "Ví dụ về trí nhớ tình tiết (episodic memory) là:",
+            a: [
+                "A. Nhớ số điện thoại",
+                "B. Nhớ bài kiểm tra tuần trước",
+                "C. Nhớ ý nghĩa của từ 'bàn'",
+                "D. Nhớ cách buộc dây giày"
+            ],
+            correct: 1
+        },
+        {
+            q: "Warrington & Weiskrantz (1968) nghiên cứu hiệu ứng gì trên bệnh nhân Korsakoff?",
+            a: [
+                "A. Procedural memory",
+                "B. Priming (trí nhớ ẩn)",
+                "C. Semantic memory",
+                "D. Flashbulb memory"
+            ],
+            correct: 1
+        },
+        {
+            q: "Perfect & Askew (1994) chứng minh điều gì về quảng cáo?",
+            a: [
+                "A. Chỉ nhớ quảng cáo chú ý kỹ",
+                "B. Đánh giá cao cả quảng cáo không chú ý nhờ priming",
+                "C. Không nhớ gì về quảng cáo",
+                "D. Chỉ nhớ màu sắc quảng cáo"
+            ],
+            correct: 1
+        },
+        {
+            q: "Kết luận từ trường hợp Clive Wearing:",
+            a: [
+                "A. Mất trí nhớ tình tiết vẫn giữ được kỹ năng nhờ trí nhớ phương thức",
+                "B. Quên hết mọi thứ kể cả kỹ năng",
+                "C. Không thể học bất cứ gì mới",
+                "D. Tạo được ký ức giả dễ dàng"
+            ],
+            correct: 0
+        },
+        {
+            q: "Craik & Lockhart (1972) đề xuất lý thuyết gì?",
+            a: [
+                "A. Levels of processing",
+                "B. Classical conditioning",
+                "C. False memory",
+                "D. Flashbulb memory"
+            ],
+            correct: 0
+        },
+        {
+            q: "Thí nghiệm Bower & Winzenz (1970) nhấn mạnh vai trò của:",
+            a: [
+                "A. Học thuộc lòng",
+                "B. Tưởng tượng hình ảnh cặp từ",
+                "C. Quen thuộc âm thanh",
+                "D. Chỉ luyện tập vận động"
+            ],
+            correct: 1
+        },
+        {
+            q: "Self-reference effect do ai thực hiện và kết quả?",
+            a: [
+                "A. Tulving; không ảnh hưởng",
+                "B. Rogers et al.; nhớ tốt hơn nếu liên hệ bản thân",
+                "C. Loftus; tạo ký ức sai",
+                "D. Pavlov; hình thành phản xạ"
+            ],
+            correct: 1
+        },
+        {
+            q: "Tổ chức thông tin giúp nhớ tốt hơn được minh chứng bởi:",
+            a: [
+                "A. Bower et al. (1969)",
+                "B. Godden & Baddeley",
+                "C. Roediger & K.C.",
+                "D. Eich (1995)"
+            ],
+            correct: 0
+        },
+        {
+            q: "Tulving & Pearlstone (1966); Mantyla (1986) tập trung nghiên cứu về:",
+            a: [
+                "A. Gợi ý phục hồi (retrieval cues)",
+                "B. Điều kiện hóa",
+                "C. Priming",
+                "D. Phục hồi ngẫu nhiên"
+            ],
+            correct: 0
+        },
+        {
+            q: "Transfer Appropriate Processing là gì?",
+            a: [
+                "A. Mã hóa sâu lúc nào cũng nhớ tốt nhất",
+                "B. Loại mã hóa phù hợp với loại kiểm tra cho kết quả tốt nhất",
+                "C. Chỉ cần học thuộc lòng là đủ",
+                "D. Học ở đâu cũng giống nhau"
+            ],
+            correct: 1
+        },
+        {
+            q: "Godden & Baddeley (1975) chứng minh điều gì?",
+            a: [
+                "A. Ngữ nghĩa quyết định trí nhớ",
+                "B. Học & kiểm tra cùng bối cảnh giúp nhớ tốt hơn",
+                "C. Học buổi sáng hiệu quả hơn",
+                "D. Chỉ học trên cạn mới nhớ"
+            ],
+            correct: 1
+        },
+        {
+            q: "Theo Levels of Processing, xử lý sâu nghĩa là:",
+            a: [
+                "A. Tập trung hình thức từ",
+                "B. Tập trung ý nghĩa, liên hệ bản thân",
+                "C. Chỉ nhẩm đi nhẩm lại",
+                "D. Đếm số chữ cái"
+            ],
+            correct: 1
+        },
+        {
+            q: "Điều kiện hóa cổ điển (classical conditioning) là:",
+            a: [
+                "A. Học qua phạt",
+                "B. Ghép đôi kích thích trung tính và kích thích có điều kiện",
+                "C. Gợi ý phục hồi",
+                "D. Flashbulb memory"
+            ],
+            correct: 1
+        },
+        {
+            q: "Priming có thể kiểm chứng qua:",
+            a: [
+                "A. Nối từ bị thiếu",
+                "B. Tái tạo ký ức sai",
+                "C. Nhớ các cặp từ học thuộc lòng",
+                "D. Chỉ học hình ảnh"
+            ],
+            correct: 0
+        },
+        {
+            q: "Theo thuyết các mức độ xử lý, nhẩm lại ý nghĩa (elaborative rehearsal) giúp:",
+            a: [
+                "A. Nhớ lâu dài",
+                "B. Quên nhanh hơn",
+                "C. Chỉ nhớ ngắn hạn",
+                "D. Không ảnh hưởng"
+            ],
+            correct: 0
+        },
+        {
+            q: "Craik & Tulving (1975) nhận thấy nhớ tốt nhất khi:",
+            a: [
+                "A. Đếm số ký tự",
+                "B. Liên hệ ý nghĩa từ vào câu phức tạp",
+                "C. Chỉ nhớ âm vần",
+                "D. Nhẩm đi nhẩm lại"
+            ],
+            correct: 1
+        },
+        {
+            q: "Mantyla (1986) cho thấy hiệu ứng gì khi dùng từ gợi ý do chính mình tạo ra?",
+            a: [
+                "A. Nhớ từ tốt hơn rất nhiều",
+                "B. Không khác biệt",
+                "C. Gây rối trí nhớ",
+                "D. Chỉ nhớ từ cuối danh sách"
+            ],
+            correct: 0
+        },
+        {
+            q: "Retrieval cue là gì?",
+            a: [
+                "A. Từ khoá, dấu hiệu giúp phục hồi thông tin trong trí nhớ",
+                "B. Đánh dấu câu hỏi khó",
+                "C. Nhắc lại ý nghĩa",
+                "D. Nhớ bằng âm thanh"
+            ],
+            correct: 0
+        },
+        {
+            q: "Eric & Metcalfe (1989) và Eich (1995) nghiên cứu về:",
+            a: [
+                "A. Priming",
+                "B. Hiệu ứng tâm trạng phù hợp khi học/kiểm tra",
+                "C. Tổ chức thông tin",
+                "D. Điều kiện hóa"
+            ],
+            correct: 1
+        },
+        {
+            q: "Điều nào KHÔNG giúp tăng khả năng nhớ lâu?",
+            a: [
+                "A. Gắn ý nghĩa, hình ảnh hóa, liên hệ bản thân",
+                "B. Học thuộc lòng không kết nối ý nghĩa",
+                "C. Tổ chức thông tin",
+                "D. Sử dụng retrieval cue"
+            ],
+            correct: 1
+        }
+    ];
+    // Shuffle utility
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+    let score = 0, answeredQuestions = 0, currentQuiz = [];
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quiz-questions');
+        quizContainer.innerHTML = '';
+        score = 0;
+        answeredQuestions = 0;
+        // Deep copy & shuffle Qs, As
+        currentQuiz = quizQuestions.map(q => {
+            const answerObjs = q.a.map((text, idx) => ({
+                text,
+                isCorrect: idx === q.correct
+            }));
+            shuffleArray(answerObjs);
+            return { q: q.q, answers: answerObjs };
+        });
+        shuffleArray(currentQuiz);
+        // Render
+        currentQuiz.forEach((qObj, i) => {
+            const opts = qObj.answers.map(aObj =>
+                `<li onclick="checkAnswer(this, ${aObj.isCorrect})">${aObj.text}</li>`
+            ).join('');
+            quizContainer.innerHTML += `
+                <div class="question">
+                    <h4>${qObj.q}</h4>
+                    <ul class="options">${opts}</ul>
+                </div>
+            `;
+        });
+        document.getElementById('finalScore').innerText = '';
+    }
+    function checkAnswer(element, isCorrect) {
+        const question = element.closest('.question');
+        if (question.classList.contains('answered')) return;
+        question.classList.add('answered');
+        answeredQuestions++;
+        const options = question.querySelectorAll('.options li');
+        options.forEach(option => { option.style.pointerEvents = 'none'; option.style.opacity = '0.7'; });
+        if (isCorrect) {
+            element.style.backgroundColor = '#d4edda'; element.style.color = '#155724'; element.style.border = '2px solid #28a745'; score++;
+        } else {
+            element.style.backgroundColor = '#f8d7da'; element.style.color = '#721c24'; element.style.border = '2px solid #dc3545';
+            options.forEach(option => {
+                if (option.onclick && option.onclick.toString().includes('true')) {
+                    option.style.backgroundColor = '#d4edda';
+                }
+            });
+        }
+    }
+    function calculateScore() {
+        document.getElementById('finalScore').innerText = `Bạn đúng ${score}/${quizQuestions.length} câu!`;
+    }
+    function resetQuiz() {
+        renderQuiz();
+    }
+    // Initial render
+    renderQuiz();
+</script>
+</body>
+</html>
