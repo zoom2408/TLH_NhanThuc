@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tâm lý học Nhận thức: Trí nhớ ngắn hạn & Trí nhớ làm việc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); min-height: 100vh; color: #222;}
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px;}
+        .header { text-align: center; margin-bottom: 40px; color: white;}
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 6px rgba(0,0,0,0.22);}
+        .header p { font-size: 1.1em; }
+        .tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px;}
+        .tab { padding: 12px 24px; border-radius: 25px; background: rgba(255,255,255,0.2); color: white; border: none; cursor: pointer; transition: all 0.2s;}
+        .tab.active, .tab:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.13);}
+        .content { background: rgba(255,255,255,0.98); border-radius: 18px; padding: 32px; box-shadow: 0 14px 30px rgba(0,0,0,0.09);}
+        .tab-content { display: none;}
+        .tab-content.active { display: block; animation: fadeIn 0.5s;}
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+        .highlight { background: linear-gradient(120deg, #ffeaa7 0%, #a2d9ff 100%); padding: 20px; border-radius: 10px; margin: 16px 0; border-left: 6px solid #198cff;}
+        .diagram, .experiment-card, .practical-example { border-radius: 15px; padding: 22px; margin: 20px 0; box-shadow: 0 7px 20px rgba(0,0,0,0.08);}
+        .diagram { background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);}
+        .experiment-card { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);}
+        .experiment-title { font-size: 1.2em; font-weight: bold; margin-bottom: 8px;}
+        .experiment-meta { color: #6a4fbb; margin-bottom: 6px; font-size: 1em;}
+        .practical-example { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);}
+        .example-title { font-weight: bold; color: #2d3436; margin-bottom: 8px;}
+        .timeline { border-left: 4px solid #198cff; padding-left: 18px; margin-left: 6px;}
+        .timeline-event { margin-bottom: 25px; }
+        .timeline-date { font-weight: bold; color: #198cff;}
+        .quiz-container { margin-top: 30px;}
+        .question { background: #fff; border-radius: 10px; padding: 20px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.06); border-left: 4px solid #198cff;}
+        .question h4 { color: #222; margin-bottom: 15px;}
+        .options { list-style: none; padding: 0;}
+        .options li { padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer; transition: background 0.3s;}
+        .options li:hover { background: #e9ecef;}
+        .reset-btn, .score-btn { background: linear-gradient(45deg, #43cea2, #185a9d); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-size: 1em; transition: all 0.2s;}
+        .reset-btn:hover, .score-btn:hover { transform: scale(1.06);}
+        .model-flow { text-align: center; margin: 20px 0;}
+        .flow-step { display: inline-block; background: white; padding: 12px 18px; margin: 7px; border-radius: 9px; box-shadow: 0 2px 8px rgba(0,0,0,0.09);}
+        .flow-step::after { content: "→"; margin-left: 10px; color: #888;}
+        .flow-step:last-child::after { display: none;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🧠 Trí nhớ ngắn hạn & Trí nhớ làm việc</h1>
+        <p>Cốt lõi – Mô hình – Thí nghiệm – Luyện tập</p>
+    </div>
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('definitions')">Định nghĩa & Khái niệm</button>
+        <button class="tab" onclick="showTab('timeline')">Dòng thời gian thí nghiệm</button>
+        <button class="tab" onclick="showTab('models')">Mô hình & Sơ đồ</button>
+        <button class="tab" onclick="showTab('quiz')">Trắc nghiệm ôn tập</button>
+    </div>
+    <div class="content">
+        <!-- Định nghĩa -->
+<div id="definitions" class="tab-content active">
+    <h2>🎯 Khái niệm trọng tâm & Định nghĩa mở rộng</h2>
+    <div class="highlight">
+        <b>Trí nhớ ngắn hạn (Short-term memory - STM):</b>
+        <ul>
+            <li>Là hệ thống lưu trữ thông tin trong thời gian ngắn (từ vài giây đến dưới 1 phút), dung lượng giới hạn (khoảng 7 ± 2 mục – Miller, 1956).</li>
+            <li>Chỉ giữ thông tin tạm thời, ít xử lý, dễ bị mất nếu không được lặp lại.</li>
+            <li><i>Ví dụ:</i> Bạn nhớ tạm một dãy số điện thoại trước khi bấm gọi.</li>
+        </ul>
+    </div>
+    <div class="highlight">
+        <b>Trí nhớ làm việc (Working Memory - WM):</b>
+        <ul>
+            <li>Theo Baddeley & Hitch (1974, bổ sung 2000), là hệ thống vừa lưu trữ tạm thời vừa xử lý thông tin cho các nhiệm vụ nhận thức phức tạp như học tập, suy luận, đọc hiểu, giải quyết vấn đề.</li>
+            <li>Gồm nhiều thành phần chuyên biệt hoạt động song song.</li>
+            <li>WM bao gồm cả việc thao tác (manipulate) thông tin chứ không chỉ lưu trữ như STM.</li>
+            <li><i>Ví dụ:</i> Bạn vừa phải nhớ danh sách số vừa phải cộng/trừ các số đó trong đầu.</li>
+        </ul>
+    </div>
+    <ul>
+        <li><b>STM</b>: Chỉ lưu trữ, không xử lý.</li>
+        <li><b>WM</b>: Vừa lưu trữ vừa thao tác/xử lý thông tin.</li>
+        <li><b>STM là một thành phần của WM.</b></li>
+    </ul>
+    <div class="highlight">
+        <b>Các đặc trưng của trí nhớ ngắn hạn & trí nhớ làm việc:</b>
+        <ul>
+            <li><b>Sức chứa:</b> Trung bình 7 ± 2 đơn vị thông tin (Miller, 1956). Sức chứa này có thể tăng nhờ "chunking" (nhóm các thông tin nhỏ thành khối lớn hơn).</li>
+            <li><b>Thời gian duy trì:</b> Thông tin mất đi sau 15-30 giây nếu không được nhắc lại/làm mới.</li>
+            <li><b>Vai trò lặp lại (rehearsal):</b> Lặp lại giúp duy trì thông tin lâu hơn trong STM.</li>
+        </ul>
+    </div>
+    <div class="highlight">
+        <b>Các thành phần chính của trí nhớ làm việc (theo Baddeley & Hitch, 1974; Baddeley, 2000):</b>
+        <ul>
+            <li><b>Vòng âm vị (Phonological loop):</b> Lưu trữ và xử lý thông tin bằng lời nói, gồm phần lưu trữ và phần nhắc lại.</li>
+            <li><b>Phác thảo thị giác - không gian (Visuospatial sketchpad):</b> Lưu giữ thông tin hình ảnh, không gian, sơ đồ.</li>
+            <li><b>Trung tâm điều hành (Central executive):</b> Điều phối, kiểm soát, phân chia sự chú ý và phân công nhiệm vụ cho các thành phần.</li>
+            <li><b>Bộ đệm theo chu kỳ (Episodic buffer):</b> (Bổ sung năm 2000) – Kết nối WM với trí nhớ dài hạn, tăng sức chứa thông tin.</li>
+        </ul>
+    </div>
+    <div class="highlight">
+        <b>Một số hiện tượng kinh điển:</b>
+        <ul>
+            <li><b>Ảnh hưởng âm tương tự (Phonological similarity effect):</b> Dễ nhầm lẫn các từ/ký tự phát âm giống nhau (thí nghiệm Conrad, 1964).</li>
+            <li><b>Ảnh hưởng độ dài từ (Word-length effect):</b> Nhớ từ ngắn dễ hơn từ dài (Baddeley et al., 1975/1984).</li>
+            <li><b>Kiềm hãm cấu âm (Articulatory suppression):</b> Lặp lại âm thanh không liên quan (vd. “the, the, the…”) làm giảm khả năng ghi nhớ thông tin bằng lời (Baddeley et al., 1984).</li>
+        </ul>
+    </div>
+    <div class="practical-example">
+        <span class="example-title">💡 Ví dụ thực tế:</span>
+        <ul>
+            <li>Bạn nhớ dãy số wifi và đọc nhẩm nhiều lần: <b>vòng âm vị</b>.</li>
+            <li>Nhớ sơ đồ bàn ghế phòng thi: <b>phác thảo thị giác-không gian</b>.</li>
+            <li>Vừa làm toán vừa nghe nhạc: <b>trung tâm điều hành</b>.</li>
+        </ul>
+    </div>
+    <div class="highlight">
+        <b>Phân biệt:</b> STM là thành phần của WM, nhưng WM phức tạp hơn, có thể thao tác/xử lý nhiều thông tin dạng khác nhau đồng thời.
+    </div>
+</div>
+
+        <!-- Timeline -->
+        <div id="timeline" class="tab-content">
+            <h2>🧭 Dòng thời gian thí nghiệm then chốt</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="timeline-date">1968 – Lee Brooks</div>
+                    <div class="experiment-title">Tác biệt giữa thông tin lời & không gian thị giác</div>
+                    <div class="experiment-meta">Phương pháp: <i>Cho người tham gia tưởng tượng hình chữ F, phản hồi bằng nói “in/out” hoặc chỉ tay vào bảng.</i></div>
+                    <div>Kết quả: Phản hồi bằng lời (âm vị) dễ hơn khi nhiệm vụ là không gian; thực hiện 2 nhiệm vụ cùng lúc, nếu cùng dạng (cả 2 lời hoặc cả 2 hình ảnh) sẽ khó hơn.<br>
+                    <span style="color:#0095ff"><b>Ý nghĩa:</b></span> Trí nhớ làm việc gồm nhiều thành phần xử lý song song.</div>
+                    <div class="practical-example"><span class="example-title">VD:</span> Vừa nghĩ hình ảnh trong đầu vừa nói ra sẽ dễ hơn là vừa nghĩ vừa chỉ tay.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">1974 – Baddeley & Hitch</div>
+                    <div class="experiment-title">Đề xuất mô hình đa thành phần WM</div>
+                    <div class="experiment-meta">3 thành phần: Vòng âm vị, Phác thảo thị giác không gian, Trung tâm điều hành</div>
+                    <div>Kết quả: Hệ thống WM hoạt động hiệu quả khi xử lý thông tin khác loại đồng thời.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">1984 – Baddeley et al.</div>
+                    <div class="experiment-title">Hiện tượng kiềm hãm cấu âm</div>
+                    <div class="experiment-meta">Người tham gia phải lặp đi lặp lại “the, the, the...” trong khi học danh sách từ</div>
+                    <div>Kết quả: Lặp từ vô nghĩa làm giảm hiệu suất ghi nhớ (ảnh hưởng vòng âm vị)</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">1989 – Funahashi et al.</div>
+                    <div class="experiment-title">Nơron thùy trán lưu giữ thông tin ngắn hạn</div>
+                    <div class="experiment-meta">Khỉ thực hiện nhiệm vụ trì hoãn phản ứng, đo hoạt động nơron ở prefrontal cortex</div>
+                    <div>Kết quả: Nơron tiếp tục phát xung khi thông tin không còn xuất hiện → giữ ký ức tạm thời</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">1992 – Brandimonte et al.</div>
+                    <div class="experiment-title">Ảnh hưởng của lời nói đến trí nhớ hình ảnh</div>
+                    <div class="experiment-meta">So sánh hiệu quả nhiệm vụ trừ tranh trong khi lặp “la la la...”</div>
+                    <div>Kết quả: Khi bắt đầu bằng hình ảnh và lặp âm thanh thì thực hiện tốt hơn (hai hệ thống độc lập)</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">2000 – Baddeley</div>
+                    <div class="experiment-title">Bổ sung bộ nhớ đệm theo chu kỳ (Episodic buffer)</div>
+                    <div class="experiment-meta">Chức năng: Kết nối WM với LTM, tăng sức chứa và liên lạc các hệ</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">2005 – Vogel et al.</div>
+                    <div class="experiment-title">Trung tâm điều hành & sự chú ý</div>
+                    <div class="experiment-meta">Dùng ERP phân tích năng lực lọc thông tin gây nhiễu ở người có WM cao/thấp</div>
+                    <div>Kết quả: Người WM cao lọc nhiễu tốt hơn → trung tâm điều hành hiệu quả hơn</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mô hình -->
+        <div id="models" class="tab-content">
+            <h2>🏗️ Mô hình & Sơ đồ trí nhớ làm việc</h2>
+            <div class="diagram">
+                <b>Mô hình Trí nhớ làm việc – Baddeley & Hitch (1974, cập nhật 2000)</b>
+                <div class="model-flow">
+                    <span class="flow-step">Thông tin đầu vào</span>
+                    <span class="flow-step">Vòng âm vị <br><i>Phonological loop</i></span>
+                    <span class="flow-step">Phác thảo thị giác – không gian <br><i>Visuospatial sketchpad</i></span>
+                    <span class="flow-step">Trung tâm điều hành <br><i>Central executive</i></span>
+                    <span class="flow-step">Bộ đệm theo chu kỳ <br><i>Episodic buffer</i></span>
+                    <span class="flow-step">LTM <br><i>Long-term memory</i></span>
+                </div>
+            </div>
+            <div class="highlight">
+                <b>Vòng âm vị</b> – Lưu trữ & lặp lại thông tin bằng lời. <br>
+                <b>Phác thảo thị giác-không gian</b> – Lưu trữ hình ảnh/thông tin không gian. <br>
+                <b>Trung tâm điều hành</b> – Kiểm soát, phân chia, điều phối sự chú ý giữa các thành phần.<br>
+                <b>Bộ đệm theo chu kỳ</b> – Kết nối WM với trí nhớ dài hạn.
+            </div>
+            <div class="practical-example"><span class="example-title">⚡ Ví dụ minh họa:</span>
+                <ul>
+                    <li>Nhớ số điện thoại (Vòng âm vị)</li>
+                    <li>Giải toán hình học hoặc tưởng tượng đường đi (Phác thảo thị giác-không gian)</li>
+                    <li>Vừa nhắn tin vừa nghe nhạc (Trung tâm điều hành chia sự chú ý)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quiz" class="tab-content">
+            <h2>📝 Trắc nghiệm ôn tập</h2>
+            <div class="quiz-container" id="quiz-questions"></div>
+            <div style="text-align: center; margin-top: 26px;">
+                <button class="score-btn" onclick="calculateScore()">Tính điểm</button>
+                <button class="reset-btn" style="margin-left:10px;" onclick="resetQuiz()">Làm lại</button>
+                <div id="finalScore" style="margin-top: 15px; font-size: 1.2em; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+        if (tabName === 'quiz') resetQuiz();
+    }
+
+    // Quiz question pool (covers all slide concepts, experiments, effects, models)
+    const quizQuestions = [
+        {q: "Trí nhớ làm việc (Working Memory) là gì?", a: [
+            "A. Hệ thống lưu trữ và xử lý thông tin tạm thời, cho các nhiệm vụ nhận thức phức tạp",
+            "B. Chỉ lưu thông tin trong vài giây mà không xử lý",
+            "C. Hệ thống lưu trữ ký ức dài hạn",
+            "D. Một loại trí nhớ của trẻ nhỏ"
+        ], correct: 0},
+        {q: "Ai là người đề xuất mô hình Trí nhớ làm việc 3 thành phần đầu tiên?", a: [
+            "A. Baddeley & Hitch (1974)",
+            "B. Bartlett (1932)",
+            "C. Loftus (1978)",
+            "D. Neisser & Harsch (1992)"
+        ], correct: 0},
+        {q: "3 thành phần của WM theo Baddeley & Hitch là:", a: [
+            "A. STM, LTM, Vòng âm vị",
+            "B. Vòng âm vị, Phác thảo thị giác-không gian, Trung tâm điều hành",
+            "C. Vòng âm vị, Vỏ não trán, Thùy đỉnh",
+            "D. STM, Episodic buffer, LTM"
+        ], correct: 1},
+        {q: "Vai trò của vòng âm vị (phonological loop) là:", a: [
+            "A. Lưu trữ thông tin hình ảnh",
+            "B. Xử lý thông tin không gian",
+            "C. Lưu trữ và lặp lại thông tin bằng lời",
+            "D. Chia sự chú ý"
+        ], correct: 2},
+        {q: "Phác thảo thị giác-không gian (visuospatial sketchpad) dùng để?", a: [
+            "A. Ghi nhớ từ ngữ",
+            "B. Lưu hình ảnh, không gian, sơ đồ",
+            "C. Ghi nhận cảm xúc",
+            "D. Tạo ký ức giả"
+        ], correct: 1},
+        {q: "Thí nghiệm của Lee Brooks (1968) chỉ ra điều gì?", a: [
+            "A. Lặp lại từ dài khó hơn từ ngắn",
+            "B. 2 nhiệm vụ cùng loại (cả hai lời hoặc cả hai hình ảnh) thực hiện kém hơn khi kết hợp hai loại khác nhau",
+            "C. STM lưu trữ vô hạn",
+            "D. Nhân chứng luôn chính xác"
+        ], correct: 1},
+        {q: "Hiện tượng ảnh hưởng âm tương tự (phonological similarity effect) là gì?", a: [
+            "A. Nhầm lẫn giữa các từ có âm thanh giống nhau",
+            "B. Lặp lại từ dài nhanh hơn từ ngắn",
+            "C. Ghi nhớ hình ảnh dễ hơn từ",
+            "D. Nhớ chính xác hơn khi vừa hát vừa học"
+        ], correct: 0},
+        {q: "Thí nghiệm của Conrad minh họa hiện tượng gì?", a: [
+            "A. Ảnh hưởng âm tương tự",
+            "B. Kiềm hãm cấu âm",
+            "C. Bộ đệm theo chu kỳ",
+            "D. Nơron phóng điện"
+        ], correct: 0},
+        {q: "Ảnh hưởng độ dài từ (word-length effect) là:", a: [
+            "A. Từ dài nhớ tốt hơn từ ngắn",
+            "B. Nhớ từ ngắn dễ hơn từ dài",
+            "C. Không có sự khác biệt",
+            "D. Từ ngắn và dài như nhau"
+        ], correct: 1},
+        {q: "Kiềm hãm cấu âm (articulatory suppression) là gì?", a: [
+            "A. Lặp từ vô nghĩa trong khi nhớ gây giảm hiệu suất",
+            "B. Nhớ hình ảnh tốt hơn từ",
+            "C. Trẻ nhỏ nhớ tốt hơn người lớn",
+            "D. Tăng khả năng nhớ dài hạn"
+        ], correct: 0},
+        {q: "Bộ đệm theo chu kỳ (episodic buffer) giúp:", a: [
+            "A. Tăng sức chứa và liên kết thông tin giữa WM và LTM",
+            "B. Giảm hiệu quả nhớ",
+            "C. Xử lý thông tin không gian",
+            "D. Chỉ lưu trữ âm thanh"
+        ], correct: 0},
+        {q: "Nghiên cứu của Funahashi et al. (1989) về khỉ chỉ ra:", a: [
+            "A. Nơron thùy trán giữ thông tin tạm thời nhờ phóng điện trong giai đoạn trì hoãn",
+            "B. Trẻ em nhớ dài hạn tốt hơn người lớn",
+            "C. STM hoạt động ở thùy chẩm",
+            "D. Không có sự khác biệt giữa các loài"
+        ], correct: 0},
+        {q: "Vai trò của trung tâm điều hành (central executive) là:", a: [
+            "A. Lặp lại thông tin",
+            "B. Điều phối sự chú ý, chuyển đổi nhiệm vụ, kiểm soát các thành phần khác",
+            "C. Lưu trữ hình ảnh",
+            "D. Kết nối với trí nhớ dài hạn"
+        ], correct: 1},
+        {q: "Thí nghiệm Vogel et al. (2005) dùng để nghiên cứu:", a: [
+            "A. Sức chứa của bộ đệm theo chu kỳ",
+            "B. Khả năng lọc thông tin gây nhiễu ở người WM cao/thấp",
+            "C. Hiệu ứng âm tương tự",
+            "D. Ảnh hưởng từ dài"
+        ], correct: 1},
+        {q: "WM khác STM như thế nào?", a: [
+            "A. STM chỉ lưu trữ, WM vừa lưu vừa xử lý nhiều loại thông tin song song",
+            "B. STM lưu trữ lâu hơn WM",
+            "C. STM xử lý thông tin nhiều hơn WM",
+            "D. Không có sự khác biệt"
+        ], correct: 0},
+        {q: "Ví dụ thực tế của vòng âm vị:", a: [
+            "A. Nhớ vị trí đồ vật trong nhà",
+            "B. Ghi nhớ số điện thoại",
+            "C. Tưởng tượng sơ đồ đường đi",
+            "D. Điều phối nhiệm vụ"
+        ], correct: 1},
+        {q: "STM có sức chứa bao nhiêu mục thông tin theo Miller?", a: [
+            "A. 2-4",
+            "B. 5-9 (thường là 7 ± 2)",
+            "C. 10-15",
+            "D. 20-30"
+        ], correct: 1},
+        {q: "Sự khác biệt khi vừa lái xe vừa nghe chỉ đường liên quan đến:", a: [
+            "A. Trung tâm điều hành chia sự chú ý giữa hai nhiệm vụ",
+            "B. STM xử lý hình ảnh",
+            "C. Bộ đệm theo chu kỳ",
+            "D. Chỉ dùng phác thảo thị giác-không gian"
+        ], correct: 0},
+        {q: "Nhiệm vụ nhắc lại “la la la…” trong thí nghiệm của Brandimonte giúp:", a: [
+            "A. Tăng hiệu quả xử lý hình ảnh vì hai hệ độc lập",
+            "B. Giảm hiệu suất nhớ",
+            "C. Tạo ký ức giả",
+            "D. Chỉ áp dụng cho trẻ em"
+        ], correct: 0},
+        {q: "Kết quả của Brooks (1968):", a: [
+            "A. Xử lý cùng loại thông tin (lời/lời, hình/hình) khó hơn hai loại khác nhau",
+            "B. Vòng âm vị luôn vượt trội",
+            "C. STM có sức chứa vô hạn",
+            "D. Trung tâm điều hành không quan trọng"
+        ], correct: 0},
+        // Add more if you want
+    ];
+
+    // Fisher–Yates shuffle
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+    let score = 0, answeredQuestions = 0, currentQuiz = [];
+
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quiz-questions');
+        quizContainer.innerHTML = '';
+        score = 0; answeredQuestions = 0;
+
+        // Deep copy and shuffle
+        currentQuiz = quizQuestions.map(q => {
+            const answerObjs = q.a.map((text, idx) => ({
+                text,
+                isCorrect: idx === q.correct
+            }));
+            shuffleArray(answerObjs);
+            return { q: q.q, answers: answerObjs };
+        });
+        shuffleArray(currentQuiz);
+
+        // Render 15 random questions
+        const showQuestions = currentQuiz.slice(0, 15);
+        showQuestions.forEach((qObj, i) => {
+            const opts = qObj.answers.map(aObj =>
+                `<li onclick="checkAnswer(this, ${aObj.isCorrect})">${aObj.text}</li>`
+            ).join('');
+            quizContainer.innerHTML += `
+                <div class="question">
+                    <h4>${i + 1}. ${qObj.q}</h4>
+                    <ul class="options">${opts}</ul>
+                </div>
+            `;
+        });
+        document.getElementById('finalScore').innerText = '';
+    }
+
+    function checkAnswer(element, isCorrect) {
+        const question = element.closest('.question');
+        if (question.classList.contains('answered')) return;
+        question.classList.add('answered');
+        answeredQuestions++;
+        const options = question.querySelectorAll('.options li');
+        options.forEach(option => { option.style.pointerEvents = 'none'; option.style.opacity = '0.7'; });
+        if (isCorrect) {
+            element.style.backgroundColor = '#d4edda'; element.style.color = '#155724'; element.style.border = '2px solid #28a745'; score++;
+        } else {
+            element.style.backgroundColor = '#f8d7da'; element.style.color = '#721c24'; element.style.border = '2px solid #dc3545';
+            options.forEach(option => {
+                if (option.onclick && option.onclick.toString().includes('true')) {
+                    option.style.backgroundColor = '#d4edda';
+                }
+            });
+        }
+    }
+    function calculateScore() {
+        document.getElementById('finalScore').innerText = `Bạn đúng ${score}/15 câu!`;
+    }
+    function resetQuiz() { renderQuiz(); }
+    renderQuiz();
+</script>
+</body>
+</html>
