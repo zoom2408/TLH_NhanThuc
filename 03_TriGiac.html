@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tâm lý học Nhận thức: Tri giác</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+        
+        .tab-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-btn.active {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+        }
+        
+        .demo-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .gestalt-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .demo-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .visual-demo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+        
+        .circles {
+            display: grid;
+            grid-template-columns: repeat(6, 20px);
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        .blue { background: #3498db; }
+        .red { background: #e74c3c; }
+        
+        .lines {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .line {
+            position: absolute;
+            background: #2c3e50;
+            transform-origin: center;
+        }
+        
+        .line1 { width: 60px; height: 3px; top: 30px; left: 10px; transform: rotate(30deg); }
+        .line2 { width: 60px; height: 3px; top: 60px; left: 50px; transform: rotate(30deg); }
+        
+        .experiment-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .pathway-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .pathway {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            flex: 1;
+            margin: 10px;
+            min-width: 250px;
+        }
+        
+        .pathway h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .brain-region {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .key-point {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #fdcb6e;
+        }
+        
+        .interactive-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .experiment-result {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .timeline-year {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .illusion-demo {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        
+        .quiz-result {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .correct { background: #d4edda; color: #155724; }
+        .incorrect { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Tâm lý học Nhận thức: TRI GIÁC</h1>
+            <p>Khám phá thế giới kỳ diệu của tri giác con người</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showSection('basics')">Bản chất Tri giác</button>
+            <button class="tab-btn" onclick="showSection('information')">Thông tin & Xử lý</button>
+            <button class="tab-btn" onclick="showSection('gestalt')">Nguyên tắc Gestalt</button>
+            <button class="tab-btn" onclick="showSection('brain')">Não bộ & Hành động</button>
+            <button class="tab-btn" onclick="showSection('experiments')">Thí nghiệm</button>
+        </div>
+        
+        <!-- Bản chất Tri giác -->
+        <div id="basics" class="content-section active">
+            <h2>🎯 Bản chất của Tri giác</h2>
+            
+            <div class="key-point">
+                <h3>💡 Tri giác là gì?</h3>
+                <p><strong>Tri giác</strong> là quá trình nhận biết, tổ chức và diễn giải thông tin từ các giác quan để hiểu về thế giới xung quanh chúng ta.</p>
+            </div>
+            
+            <h3>🔍 Đặc điểm cơ bản của Tri giác (theo Goldstein 2020)</h3>
+            <div class="gestalt-demo">
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div style="font-size: 3em;">🔄</div>
+                    </div>
+                    <strong>Có thể thay đổi</strong>
+                    <p>Dựa trên thông tin được thêm vào</p>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div style="font-size: 3em;">🧩</div>
+                    </div>
+                    <strong>Phức tạp như lập luận</strong>
+                    <p>Chứa đựng tiến trình vô hình</p>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div style="font-size: 3em;">🤝</div>
+                    </div>
+                    <strong>Liên kết với hành động</strong>
+                    <p>Cổng cho mọi hoạt động nhận thức</p>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>🤖 Thách thức DARPA 2004</h3>
+                <p><strong>Thử thách:</strong> 13 xe robot tự hành hoàn thành 150 dặm (240 km)</p>
+                <p><strong>Kết quả:</strong> Xe tốt nhất chỉ đi được 7.32 dặm (11.78 km)</p>
+                <p><strong>Bài học:</strong> Tri giác con người phức tạp hơn nhiều so với máy tính!</p>
+            </div>
+            
+            <div class="illusion-demo">
+                <h3>🎭 Tại sao máy tính gặp khó khăn?</h3>
+                <div class="gestalt-demo">
+                    <div class="demo-item">
+                        <strong>🔍 Vấn đề chiếu ngược</strong>
+                        <p>Kích thích từ thụ thể mơ hồ</p>
+                    </div>
+                    <div class="demo-item">
+                        <strong>👁️ Vật thể bị khuất</strong>
+                        <p>Dễ: tìm bút chì<br>Khó: tìm mắt kính</p>
+                    </div>
+                    <div class="demo-item">
+                        <strong>🔄 Góc nhìn khác nhau</strong>
+                        <p>Con người có "góc nhìn bất biến"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Thông tin & Xử lý -->
+        <div id="information" class="content-section">
+            <h2>📊 Thông tin cho Tri giác của Con người</h2>
+            
+            <div class="pathway-diagram">
+                <div class="pathway">
+                    <h4>⬆️ Xử lý Từ dưới lên (Bottom-up)</h4>
+                    <p><strong>Thông tin từ môi trường</strong></p>
+                    <div class="brain-region">
+                        Ánh sáng → Mắt → Tín hiệu thần kinh → Não
+                    </div>
+                </div>
+                
+                <div class="pathway">
+                    <h4>⬇️ Xử lý Từ trên xuống (Top-down)</h4>
+                    <p><strong>Kiến thức & Kinh nghiệm</strong></p>
+                    <div class="brain-region">
+                        Ký ức → Mong đợi → Ảnh hưởng tri giác
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <h3>🎯 Kết quả</h3>
+                <p>Một <strong>diễn giải tốt nhất có thể</strong> về kích thích từ sự kết hợp của cả hai tiến trình</p>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>🗣️ Phân đoạn Giọng nói (Speech Segmentation)</h3>
+                <p><strong>Vấn đề:</strong> Làm sao chúng ta biết một từ kết thúc và từ khác bắt đầu?</p>
+                <button class="interactive-btn" onclick="showSpeechDemo()">Xem ví dụ</button>
+                <div id="speech-demo" class="experiment-result">
+                    <h4>Ví dụ: "pretty baby"</h4>
+                    <p>🔄 Có thể nghe thành: <strong>pre-tty ba-by</strong></p>
+                    <p>🔄 Hoặc: <strong>pret-ty ba-by</strong></p>
+                    <p><strong>Nghiên cứu Saffran (1996):</strong> Trẻ 8 tháng tuổi đã nhận ra xác suất chuyển tiếp!</p>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3>❓ Câu hỏi tư duy</h3>
+                <p><strong>Tri giác đau:</strong> Liệu xử lý từ trên xuống có thể ảnh hưởng đến tri giác đau không?</p>
+                <button class="quiz-btn" onclick="showAnswer('pain')">Có</button>
+                <button class="quiz-btn" onclick="showAnswer('pain')">Không</button>
+                <div id="pain-answer" class="quiz-result">
+                    <p class="correct"><strong>Đúng rồi!</strong> Placebo effect là ví dụ điển hình - khi chúng ta tin rằng thuốc sẽ giảm đau, não bộ thực sự giảm cảm giác đau!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nguyên tắc Gestalt -->
+        <div id="gestalt" class="content-section">
+            <h2>🎨 Nguyên tắc Gestalt</h2>
+            
+            <div class="key-point">
+                <h3>💫 Ý tưởng cốt lõi</h3>
+                <p><strong>"Tổng thể khác với tổng các phần của nó"</strong><br>
+                (The whole is different than the sum of its parts)</p>
+            </div>
+            
+            <h3>🎯 Các Nguyên tắc Chính</h3>
+            
+            <div class="gestalt-demo">
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div class="lines">
+                            <div class="line line1"></div>
+                            <div class="line line2"></div>
+                        </div>
+                    </div>
+                    <h4>1️⃣ Tiếp diễn (Continuity)</h4>
+                    <p>Các điểm tạo đường thẳng/cong được nhóm lại</p>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div style="font-size: 4em; color: #3498db;">○</div>
+                    </div>
+                    <h4>2️⃣ Pragnanz</h4>
+                    <p>Nhìn theo cấu trúc đơn giản nhất</p>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="visual-demo">
+                        <div class="circles">
+                            <div class="circle blue"></div>
+                            <div class="circle red"></div>
+                            <div class="circle blue"></div>
+                            <div class="circle red"></div>
+                            <div class="circle blue"></div>
+                            <div class="circle red"></div>
+                        </div>
+                    </div>
+                    <h4>3️⃣ Tương tự (Similarity)</h4>
+                    <p>Đặc điểm giống nhau được nhóm lại</p>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>⚖️ Khi các luật Gestalt xung đột (Quinlan & Wilton 1998)</h3>
+                <p>Khi nhiều nguyên tắc cùng tác động, não bộ sẽ ưu tiên nguyên tắc nào mạnh hơn</p>
+                <button class="interactive-btn" onclick="showGestaltConflict()">Xem ví dụ xung đột</button>
+                <div id="gestalt-conflict" class="experiment-result">
+                    <p><strong>Ví dụ:</strong> Khi màu sắc (similarity) và khoảng cách (proximity) xung đột, não thường ưu tiên khoảng cách gần hơn!</p>
+                </div>
+            </div>
+            
+            <div class="illusion-demo">
+                <h3>🌍 Quy luật từ Môi trường</h3>
+                <div class="gestalt-demo">
+                    <div class="demo-item">
+                        <strong>📐 Quy luật Vật lý</strong>
+                        <p>• Ưu thế chiều dọc/ngang<br>• Ánh sáng từ trên cao</p>
+                    </div>
+                    <div class="demo-item">
+                        <strong>🏠 Quy luật Ngữ nghĩa</strong>
+                        <p>• Nhà bếp có bếp, tủ lạnh<br>• Phòng ngủ có giường</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Não bộ & Hành động -->
+        <div id="brain" class="content-section">
+            <h2>🧠 Não bộ & Tri giác Hành động</h2>
+            
+            <h3>🛤️ Hai Con đường Xử lý</h3>
+            <div class="pathway-diagram">
+                <div class="pathway">
+                    <h4>👁️ What Pathway (Con đường "Cái gì")</h4>
+                    <div class="brain-region">
+                        <strong>Ventral Pathway</strong><br>
+                        Thùy thái dương
+                    </div>
+                    <p><strong>Chức năng:</strong> Nhận dạng vật thể</p>
+                    <p><strong>Tổn thương:</strong> Khó phân biệt hình dạng</p>
+                </div>
+                
+                <div class="pathway">
+                    <h4>📍 Where Pathway (Con đường "Ở đâu")</h4>
+                    <div class="brain-region">
+                        <strong>Dorsal Pathway</strong><br>
+                        Thùy đỉnh
+                    </div>
+                    <p><strong>Chức năng:</strong> Xác định vị trí</p>
+                    <p><strong>Tổn thương:</strong> Khó xác định vị trí</p>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>👩‍⚕️ Nghiên cứu D.F. (Milner & Goodale 1995)</h3>
+                <p><strong>Bệnh nhân:</strong> Tổn thương thùy thái dương do ngộ độc CO₂</p>
+                <div class="gestalt-demo">
+                    <div class="demo-item">
+                        <div style="font-size: 3em; color: #e74c3c;">❌</div>
+                        <strong>Nhiệm vụ 1</strong>
+                        <p>Xoay thẻ khớp với khe: THẤT BẠI</p>
+                    </div>
+                    <div class="demo-item">
+                        <div style="font-size: 3em; color: #27ae60;">✅</div>
+                        <strong>Nhiệm vụ 2</strong>
+                        <p>"Gửi thư" qua khe: THÀNH CÔNG</p>
+                    </div>
+                </div>
+                <p><strong>Kết luận:</strong> Tri giác và hành động sử dụng các con đường não khác nhau!</p>
+            </div>
+            
+            <div class="timeline">
+                <h3>📚 Phát triển Nghiên cứu</h3>
+                <div class="timeline-item">
+                    <div class="timeline-year">1982</div>
+                    <strong>Ungerleider & Mishkin:</strong> Phát hiện What/Where pathways
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1992</div>
+                    <strong>Pellegrino và cs:</strong> Phát hiện tế bào thần kinh gương (mirror neurons)
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1995</div>
+                    <strong>Milner & Goodale:</strong> Mở rộng thành Perception/Action pathways
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <h3>🪞 Tế bào Thần kinh Gương (Mirror Neurons)</h3>
+                <p><strong>Đặc điểm:</strong> Hoạt động khi thực hiện hành động VÀ khi quan sát người khác thực hiện</p>
+                <p><strong>Ý nghĩa:</strong> Giúp hiểu mục tiêu và ý định của hành động (Why pathway)</p>
+                <button class="interactive-btn" onclick="showMirrorDemo()">Thử nghiệm gương</button>
+                <div id="mirror-demo" class="experiment-result">
+                    <p><strong>Thử ngay:</strong> Hãy quan sát ai đó cầm cốc nước. Não bạn sẽ kích hoạt như thể bạn đang cầm cốc!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Thí nghiệm -->
+        <div id="experiments" class="content-section">
+            <h2>🔬 Thí nghiệm Kinh điển</h2>
+            
+            <div class="experiment-box">
+                <h3>🐵 Thí nghiệm Ungerleider & Mishkin (1982)</h3>
+                <div class="gestalt-demo">
+                    <div class="demo-item">
+                        <div style="font-size: 3em;">🔍</div>
+                        <strong>Phân biệt Vật thể</strong>
+                        <p>Chọn hình chữ nhật → nhận thức ăn</p>
+                        <p><em>Tổn thương thùy thái dương: Thất bại</em></p>
+                    </div>
+                    <div class="demo-item">
+                        <div style="font-size: 3em;">📍</div>
+                        <strong>Phân biệt Vị trí</strong>
+                        <p>Tìm thức ăn gần hình trụ cao</p>
+                        <p><em>Tổn thương thùy đỉnh: Thất bại</em></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>👽 Thí nghiệm "Greeble" (Gauthier và cs 1997-1999)</h3>
+                <p><strong>Mục đích:</strong> Chứng minh não có thể "học" nhận dạng vật thể mới</p>
+                <div class="demo-box">
+                    <p>🧑‍🎓 <strong>Giai đoạn 1:</strong> Người tham gia học nhận dạng các "Greeble" (vật thể giả tưởng)</p>
+                    <p>🧠 <strong>Giai đoạn 2:</strong> Quét não cho thấy vùng FFA (vùng nhận dạng khuôn mặt) cũng hoạt động với Greeble!</p>
+                    <p>💡 <strong>Kết luận:</strong> Não có thể "tái sử dụng" các vùng cho nhiệm vụ mới</p>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>🎯 Thí nghiệm Saffran (1996) - Học ngôn ngữ</h3>
+                <p><strong>Đối tượng:</strong> Trẻ 8 tháng tuổi</p>
+                <p><strong>Phương pháp:</strong> Cho trẻ nghe chuỗi âm thanh liên tục</p>
+                <button class="interactive-btn" onclick="showLanguageExperiment()">Xem kết quả</button>
+                <div id="language-experiment" class="experiment-result">
+                    <p><strong>Kết quả đáng kinh ngạc:</strong> Trẻ có thể nhận ra các "từ" dựa trên xác suất chuyển tiếp mà không cần hiểu ý nghĩa!</p>
+                    <p><strong>Ví dụ:</strong> "bidakupadotigolabubidaku" → trẻ nhận ra "bidaku" là một "từ"</p>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3>🧪 Kiểm tra Hiểu biết</h3>
+                <p><strong>Câu hỏi:</strong> Tại sao con người có ưu thế nhận dạng đường ngang và đường dọc hơn đường chéo?</p>
+                <button class="quiz-btn" onclick="showQuizAnswer('oblique', 'evolution')">Do tiến hóa</button>
+                <button class="quiz-btn" onclick="showQuizAnswer('oblique', 'learning')">Do học tập</button>
+                <button class="quiz-btn" onclick="showQuizAnswer('oblique', 'both')">Cả hai</button>
+                <div id="oblique-answer" class="quiz-result">
+                    <p class="correct"><strong>Chính xác!</strong> Cả tiến hóa và học tập đều đóng vai trò:</p>
+                    <p>🧬 <strong>Tiến hóa:</strong> Môi trường tự nhiên có nhiều đường ngang (đường chân trời) và dọc (cây cối)</p>
+                    <p>📚 <strong>Học tập:</strong> Tính mềm dẻo phụ thuộc kinh nghiệm - não "điều chỉnh" theo môi trường</p>
+                </div>
+                
+                <p style="margin-top: 20px;"><strong>Câu hỏi 2:</strong> Visual Agnosia có những loại nào?</p>
+                <button class="quiz-btn" onclick="showQuizAnswer('agnosia', 'correct')">Form agnosia & Integrative agnosia</button>
+                <button class="quiz-btn" onclick="showQuizAnswer('agnosia', 'wrong1')">Color agnosia & Motion agnosia</button>
+                <button class="quiz-btn" onclick="showQuizAnswer('agnosia', 'wrong2')">Face agnosia & Object agnosia</button>
+                <div id="agnosia-answer" class="quiz-result">
+                    <p class="correct"><strong>Đúng rồi!</strong></p>
+                    <p>🔍 <strong>Form agnosia (Apperceptive):</strong> Không thể nhận dạng hình dạng cơ bản</p>
+                    <p>🧩 <strong>Integrative agnosia (Associative):</strong> Nhận dạng được hình dạng nhưng không hiểu ý nghĩa</p>
+                </div>
+            </div>
+            
+            <div class="illusion-demo">
+                <h3>🎪 Hoạt động Tương tác</h3>
+                <p>Hãy thử các hoạt động sau để cảm nhận tri giác:</p>
+                <button class="interactive-btn" onclick="startPerceptionGame()">🎯 Trò chơi Tri giác</button>
+                <button class="interactive-btn" onclick="showGestaltExamples()">🎨 Ví dụ Gestalt</button>
+                <button class="interactive-btn" onclick="testMirrorNeurons()">🪞 Test Mirror Neurons</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ẩn tất cả sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Xóa active từ tất cả buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Hiển thị section được chọn
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Thêm active cho button được chọn
+            event.target.classList.add('active');
+        }
+        
+        function showSpeechDemo() {
+            const demo = document.getElementById('speech-demo');
+            demo.style.display = demo.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function showGestaltConflict() {
+            const conflict = document.getElementById('gestalt-conflict');
+            conflict.style.display = conflict.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function showMirrorDemo() {
+            const demo = document.getElementById('mirror-demo');
+            demo.style.display = demo.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function showLanguageExperiment() {
+            const experiment = document.getElementById('language-experiment');
+            experiment.style.display = experiment.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function showAnswer(type) {
+            const answer = document.getElementById(type + '-answer');
+            answer.style.display = 'block';
+        }
+        
+        function showQuizAnswer(quizType, answerType) {
+            const answerDiv = document.getElementById(quizType + '-answer');
+            
+            if (answerType === 'both' || answerType === 'correct') {
+                answerDiv.className = 'quiz-result correct';
+            } else {
+                answerDiv.className = 'quiz-result incorrect';
+                if (quizType === 'oblique') {
+                    answerDiv.innerHTML = '<p><strong>Không hoàn toàn đúng.</strong> Cả tiến hóa và học tập đều quan trọng trong việc hình thành ưu thế nhận dạng đường ngang/dọc.</p>';
+                } else if (quizType === 'agnosia') {
+                    answerDiv.innerHTML = '<p><strong>Chưa chính xác.</strong> Hai loại chính của Visual Agnosia là Form agnosia (Apperceptive) và Integrative agnosia (Associative).</p>';
+                }
+            }
+            
+            answerDiv.style.display = 'block';
+        }
+        
+        function startPerceptionGame() {
+            alert('🎯 Trò chơi Tri giác!\n\nHãy quan sát xung quanh bạn trong 30 giây và đếm:\n- Bao nhiêu vật thể màu xanh?\n- Bao nhiêu đường thẳng?\n- Bao nhiêu hình tròn?\n\nSau đó suy ngẫm: Não bạn đã sử dụng nguyên tắc Gestalt nào?');
+        }
+        
+        function showGestaltExamples() {
+            const examples = `
+🎨 Ví dụ Nguyên tắc Gestalt trong đời sống:
+
+1️⃣ PROXIMITY (Gần gũi):
+   Các ngôi sao trong chòm sao
+   
+2️⃣ SIMILARITY (Tương tự):
+   Logo các thương hiệu
+   
+3️⃣ CLOSURE (Đóng kín):
+   Logo IBM, WWF
+   
+4️⃣ CONTINUITY (Liên tục):
+   Đường ray xe lửa
+   
+5️⃣ FIGURE-GROUND:
+   Ảnh bình hoa vs. hai khuôn mặt
+            `;
+            alert(examples);
+        }
+        
+        function testMirrorNeurons() {
+            alert('🪞 Test Mirror Neurons!\n\n1. Hãy quan sát ai đó đang uống nước\n2. Để ý cảm giác trong miệng bạn\n3. Bạn có cảm thấy như mình cũng đang uống không?\n\nĐó chính là mirror neurons đang hoạt động!');
+        }
+        
+        // Thêm hiệu ứng cuộn mượt
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            });
+        });
+        
+        // Thêm hiệu ứng hover cho các demo boxes
+        document.querySelectorAll('.demo-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Animation khi load trang
+        window.addEventListener('load', function() {
+            const header = document.querySelector('.header');
+            header.style.animation = 'fadeIn 1s ease-in';
+        });
+    </script>
+</body>
+</html>

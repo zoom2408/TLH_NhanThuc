@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tâm lý học Chú ý - Khám phá Bí mật của Não bộ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab:hover, .tab.active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .experiment-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .experiment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .experiment-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .experiment-title::before {
+            content: "🧠";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .interactive-demo {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #007bff;
+        }
+        
+        .demo-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .quiz-container {
+            margin-top: 30px;
+        }
+        
+        .question {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #28a745;
+        }
+        
+        .question h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+        }
+        
+        .options li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .options li:hover {
+            background: #e9ecef;
+        }
+        
+        .model-diagram {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: white;
+            padding: 15px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .flow-step::after {
+            content: "→";
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #666;
+        }
+        
+        .flow-step:last-child::after {
+            display: none;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e17055;
+        }
+        
+        .practical-example {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+        
+        .example-title::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Tâm lý học Chú ý</h1>
+            <p>Khám phá những bí mật của não bộ và cơ chế chú ý</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('definitions')">Định nghĩa & Khái niệm</button>
+            <button class="tab" onclick="showTab('experiments')">Thí nghiệm kinh điển</button>
+            <button class="tab" onclick="showTab('models')">Mô hình lý thuyết</button>
+            <button class="tab" onclick="showTab('applications')">Ứng dụng thực tế</button>
+            <button class="tab" onclick="showTab('quiz')">Kiểm tra kiến thức</button>
+        </div>
+        
+        <div class="content">
+            <!-- Tab Định nghĩa -->
+            <div id="definitions" class="tab-content active">
+                <h2>🎯 Sự chú ý là gì?</h2>
+                
+                <div class="highlight">
+                    <h3>Định nghĩa cốt lõi:</h3>
+                    <p><strong>Sự chú ý (Attention)</strong> là quá trình tập trung vào những nét đặc trưng riêng biệt trong môi trường, đồng thời loại trừ những nét đặc trưng khác.</p>
+                </div>
+                
+                <div class="practical-example">
+                    <div class="example-title">Ví dụ từ cuộc sống:</div>
+                    <p>Khi bạn đang nghe nhạc bằng tai nghe trong quán cà phê ồn ào, bạn có thể tập trung hoàn toàn vào giai điệu mà "quên" đi tiếng ồn xung quanh. Đây chính là sự chú ý có lựa chọn!</p>
+                </div>
+                
+                <h3>🔍 Đặc điểm quan trọng của sự chú ý:</h3>
+                <ul>
+                    <li><strong>Tính lựa chọn:</strong> Chúng ta không thể chú ý đến mọi thứ cùng lúc</li>
+                    <li><strong>Tính phức hợp:</strong> Sự chú ý bao gồm nhiều hiện tượng tâm lý khác nhau</li>
+                    <li><strong>Vai trò trung tâm:</strong> Liên quan đến tri giác, trí nhớ, ngôn ngữ, và giải quyết vấn đề</li>
+                </ul>
+                
+                <div class="interactive-demo">
+                    <h4>🎮 Thử nghiệm nhỏ:</h4>
+                    <p>Hãy đếm số lần bạn nhìn thấy từ "chú ý" trong đoạn văn dưới đây:</p>
+                    <div style="background: #e9ecef; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                        "Sự chú ý là một quá trình phức tạp. Khi chúng ta chú ý vào một việc, não bộ sẽ tập trung nguồn lực nhận thức. Việc nghiên cứu chú ý giúp chúng ta hiểu rõ hơn về cách thức hoạt động của tâm trí con người."
+                    </div>
+                    <button class="demo-button" onclick="alert('Có 4 lần xuất hiện từ \'chú ý\'! Bạn có nhận ra hết không?')">Kiểm tra đáp án</button>
+                </div>
+            </div>
+            
+            <!-- Tab Thí nghiệm -->
+            <div id="experiments" class="tab-content">
+                <h2>🔬 Những thí nghiệm kinh điển</h2>
+                
+                <div class="experiment-card">
+                    <div class="experiment-title">Thí nghiệm Cocktail Party của Cherry (1953)</div>
+                    <p><strong>Phương pháp:</strong> Nghe phân đôi (dichotic listening) - cho người tham gia nghe hai thông điệp khác nhau ở hai tai.</p>
+                    <p><strong>Kết quả:</strong> Con người có thể tập trung vào một thông điệp và bỏ qua thông điệp khác, nhưng vẫn nhận biết được một số đặc điểm cơ bản (giọng nam/nữ).</p>
+                    
+                    <div class="interactive-demo">
+                        <h4>🎧 Mô phỏng hiện tượng Cocktail Party:</h4>
+                        <p>Tưởng tượng bạn đang ở một bữa tiệc ồn ào. Bạn có thể:</p>
+                        <button class="demo-button" onclick="simulateCocktailParty()">Trải nghiệm hiện tượng</button>
+                        <div id="cocktailResult" style="margin-top: 10px; font-style: italic;"></div>
+                    </div>
+                </div>
+                
+                <div class="experiment-card">
+                    <div class="experiment-title">Thí nghiệm "Dear Aunt Jane" của Gray & Wedderburn (1960)</div>
+                    <p><strong>Điều đặc biệt:</strong> Người tham gia có thể "chuyển kênh" khi nghe những từ tạo thành câu có nghĩa.</p>
+                    <p><strong>Ý nghĩa:</strong> Cho thấy não bộ xử lý ý nghĩa ngay cả từ kênh "không chú ý".</p>
+                </div>
+                
+                <div class="experiment-card">
+                    <div class="experiment-title">Thí nghiệm "Mù thay đổi" của Rensink (1997)</div>
+                    <p><strong>Phát hiện:</strong> Con người thường không nhận ra những thay đổi lớn trong hình ảnh, thậm chí khi được cảnh báo trước.</p>
+                    <p><strong>Nguyên nhân:</strong> Thiếu sự chú ý đặc biệt vào chi tiết.</p>
+                    
+                    <div class="interactive-demo">
+                        <h4>👁️ Thử thách "Mù thay đổi":</h4>
+                        <p>Trong cuộc sống hàng ngày, bạn có nhận ra:</p>
+                        <ul>
+                            <li>Bạn bè thay đổi kiểu tóc?</li>
+                            <li>Đồ vật trong phòng được di chuyển?</li>
+                            <li>Quần áo của người khác?</li>
+                        </ul>
+                        <button class="demo-button" onclick="alert('Nghiên cứu cho thấy chúng ta bỏ lỡ 75% những thay đổi xung quanh!')">Kết quả nghiên cứu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab Mô hình -->
+            <div id="models" class="tab-content">
+                <h2>🏗️ Các mô hình lý thuyết</h2>
+                
+                <div class="model-diagram">
+                    <h3>📡 Mô hình Bộ lọc của Broadbent (1958)</h3>
+                    <div style="margin: 20px 0;">
+                        <div class="flow-step">Lưu trữ cảm giác</div>
+                        <div class="flow-step">Bộ lọc</div>
+                        <div class="flow-step">Bộ phát hiện</div>
+                        <div class="flow-step">Trí nhớ ngắn hạn</div>
+                    </div>
+                    <p><strong>Đặc điểm:</strong> Mô hình "lựa chọn ban đầu" - lọc thông tin dựa trên đặc điểm vật lý trước khi phân tích ý nghĩa.</p>
+                </div>
+                
+                <div class="model-diagram">
+                    <h3>🔄 Thuyết Suy giảm của Treisman</h3>
+                    <p><strong>Cải tiến:</strong> Thay "bộ lọc" bằng "bộ suy giảm" - thông tin không chú ý bị yếu đi nhưng không bị loại bỏ hoàn toàn.</p>
+                    
+                    <div class="highlight">
+                        <h4>Đơn vị từ điển (Dictionary Unit):</h4>
+                        <ul>
+                            <li><strong>Ngưỡng thấp:</strong> Từ quan trọng (tên bạn) dễ được phát hiện</li>
+                            <li><strong>Ngưỡng cao:</strong> Từ thông thường cần tín hiệu mạnh mới được nhận ra</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="practical-example">
+                    <div class="example-title">Ví dụ thực tế về Thuyết Suy giảm:</div>
+                    <p>Tại sao bạn có thể nghe thấy tên mình được gọi trong căn phòng ồn ào? Vì "tên bạn" có ngưỡng phát hiện rất thấp trong não bộ!</p>
+                </div>
+            </div>
+            
+            <!-- Tab Ứng dụng -->
+            <div id="applications" class="tab-content">
+                <h2>🌟 Ứng dụng trong cuộc sống</h2>
+                
+                <div class="practical-example">
+                    <div class="example-title">An toàn giao thông</div>
+                    <p><strong>Nghiên cứu:</strong> Sử dụng điện thoại khi lái xe tăng nguy cơ tai nạn gấp 4 lần!</p>
+                    <p><strong>Nguyên nhân:</strong> Việc nói chuyện điện thoại chiếm dụng nguồn lực nhận thức cần thiết cho việc lái xe.</p>
+                </div>
+                
+                <div class="practical-example">
+                    <div class="example-title">Học tập hiệu quả</div>
+                    <p><strong>Nguyên tắc:</strong> Tránh đa nhiệm khi học những kiến thức mới phức tạp.</p>
+                    <p><strong>Mẹo:</strong> Tập trung hoàn toàn vào một việc trong 25-30 phút (Kỹ thuật Pomodoro).</p>
+                </div>
+                
+                <div class="practical-example">
+                    <div class="example-title">Thiết kế giao diện</div>
+                    <p><strong>Ứng dụng:</strong> Thiết kế website/app cần chú ý đến giới hạn chú ý của người dùng.</p>
+                    <p><strong>Nguyên tắc:</strong> Thông tin quan trọng nên được làm nổi bật, tránh quá tải thông tin.</p>
+                </div>
+                
+                <h3>💪 Cách cải thiện khả năng chú ý:</h3>
+                <ul>
+                    <li><strong>Luyện tập thiền:</strong> Giúp tăng cường khả năng tập trung</li>
+                    <li><strong>Tập thể dục:</strong> Cải thiện hoạt động của não bộ</li>
+                    <li><strong>Ngủ đủ giấc:</strong> Đảm bảo não bộ được nghỉ ngơi</li>
+                    <li><strong>Giảm phân tâm:</strong> Tắt thông báo khi cần tập trung cao độ</li>
+                </ul>
+            </div>
+            
+            <!-- Tab Quiz -->
+            <div id="quiz" class="tab-content">
+                <h2>📝 Kiểm tra kiến thức</h2>
+                <div class="quiz-container">
+                    <div class="question">
+                        <h4>1. Sự chú ý được định nghĩa là gì?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Khả năng ghi nhớ thông tin</li>
+                            <li onclick="checkAnswer(this, true)">B. Quá trình tập trung vào những nét đặc trưng riêng biệt trong môi trường</li>
+                            <li onclick="checkAnswer(this, false)">C. Khả năng suy nghĩ logic</li>
+                            <li onclick="checkAnswer(this, false)">D. Quá trình xử lý ngôn ngữ</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>2. Hiện tượng "Cocktail Party" được phát hiện bởi ai?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, true)">A. Colin Cherry (1953)</li>
+                            <li onclick="checkAnswer(this, false)">B. Donald Broadbent (1958)</li>
+                            <li onclick="checkAnswer(this, false)">C. Anne Treisman</li>
+                            <li onclick="checkAnswer(this, false)">D. Neville Moray (1959)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>3. Mô hình bộ lọc của Broadbent được gọi là mô hình gì?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, true)">A. Mô hình lựa chọn ban đầu</li>
+                            <li onclick="checkAnswer(this, false)">B. Mô hình lựa chọn cuối</li>
+                            <li onclick="checkAnswer(this, false)">C. Mô hình lựa chọn trung gian</li>
+                            <li onclick="checkAnswer(this, false)">D. Mô hình song song</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>4. Thuyết suy giảm của Treisman khác với mô hình Broadbent ở điểm nào?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Loại bỏ hoàn toàn thông tin không chú ý</li>
+                            <li onclick="checkAnswer(this, true)">B. Làm yếu thông tin không chú ý thay vì loại bỏ</li>
+                            <li onclick="checkAnswer(this, false)">C. Chỉ xử lý đặc điểm vật lý</li>
+                            <li onclick="checkAnswer(this, false)">D. Không có sự khác biệt</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>5. "Đơn vị từ điển" trong thuyết Treisman có chức năng gì?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, true)">A. Phân tích thông điệp dựa trên ngưỡng kích hoạt</li>
+                            <li onclick="checkAnswer(this, false)">B. Lưu trữ từ vựng</li>
+                            <li onclick="checkAnswer(this, false)">C. Lọc âm thanh</li>
+                            <li onclick="checkAnswer(this, false)">D. Tạo ra ngôn ngữ</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>6. Thí nghiệm của MacKay (1973) chứng minh điều gì?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Thông tin không chú ý bị loại bỏ hoàn toàn</li>
+                            <li onclick="checkAnswer(this, true)">B. Thông tin không chú ý được xử lý ở mức ý nghĩa</li>
+                            <li onclick="checkAnswer(this, false)">C. Chỉ xử lý đặc điểm vật lý</li>
+                            <li onclick="checkAnswer(this, false)">D. Không thể nghe hai tai cùng lúc</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>7. Tải trọng nhiệm vụ (task load) được định nghĩa như thế nào?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Khối lượng công việc trong ngày</li>
+                            <li onclick="checkAnswer(this, true)">B. Nguồn lực nhận thức cần thiết để hoàn thành nhiệm vụ</li>
+                            <li onclick="checkAnswer(this, false)">C. Thời gian để hoàn thành công việc</li>
+                            <li onclick="checkAnswer(this, false)">D. Độ khó của bài tập</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>8. Khi nào sự chú ý có thể được phân chia dễ dàng?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Khi nhiệm vụ có tải trọng cao</li>
+                            <li onclick="checkAnswer(this, true)">B. Khi nhiệm vụ có tải trọng thấp</li>
+                            <li onclick="checkAnswer(this, false)">C. Khi có nhiều người tham gia</li>
+                            <li onclick="checkAnswer(this, false)">D. Khi sử dụng công nghệ</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>9. Quá trình tự động (automatic processing) đạt được thông qua:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, true)">A. Luyện tập lặp đi lặp lại</li>
+                            <li onclick="checkAnswer(this, false)">B. Học thuộc lòng</li>
+                            <li onclick="checkAnswer(this, false)">C. Tăng cường độ kích thích</li>
+                            <li onclick="checkAnswer(this, false)">D. Sử dụng nhiều giác quan</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>10. Hiện tượng "mù thay đổi" xảy ra do:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Vấn đề về thị lực</li>
+                            <li onclick="checkAnswer(this, true)">B. Thiếu sự chú ý</li>
+                            <li onclick="checkAnswer(this, false)">C. Quá nhiều thông tin</li>
+                            <li onclick="checkAnswer(this, false)">D. Mệt mỏi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>11. Nghiên cứu về điện thoại di động và lái xe cho thấy:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Không có ảnh hưởng đến khả năng lái xe</li>
+                            <li onclick="checkAnswer(this, false)">B. Tăng nguy cơ tai nạn gấp 2 lần</li>
+                            <li onclick="checkAnswer(this, true)">C. Tăng nguy cơ tai nạn gấp 4 lần</li>
+                            <li onclick="checkAnswer(this, false)">D. Chỉ ảnh hưởng khi gọi video</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>12. Phản ứng phụ thuộc vào sự chú ý của Brooks chỉ ra rằng:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Tất cả nhiệm vụ đều có thể kết hợp</li>
+                            <li onclick="checkAnswer(this, true)">B. Nhiệm vụ cùng loại cạnh tranh nguồn lực nhận thức</li>
+                            <li onclick="checkAnswer(this, false)">C. Nhiệm vụ khác loại luôn dễ kết hợp</li>
+                            <li onclick="checkAnswer(this, false)">D. Không có sự cạnh tranh nào</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>13. Trong thí nghiệm "split-scan" của Broadbent, việc báo cáo theo cặp cho kết quả:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. 65% chính xác</li>
+                            <li onclick="checkAnswer(this, true)">B. 20% chính xác</li>
+                            <li onclick="checkAnswer(this, false)">C. 50% chính xác</li>
+                            <li onclick="checkAnswer(this, false)">D. 80% chính xác</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>14. Sự chú ý từ trên xuống (top-down) được điều khiển bởi:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Kích thích bên ngoài</li>
+                            <li onclick="checkAnswer(this, true)">B. Ý nghĩa và hiểu biết của chúng ta</li>
+                            <li onclick="checkAnswer(this, false)">C. Phản xạ tự nhiên</li>
+                            <li onclick="checkAnswer(this, false)">D. Cường độ âm thanh</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>15. Khả năng phân chia chú ý phụ thuộc vào những yếu tố nào?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Chỉ sự luyện tập</li>
+                            <li onclick="checkAnswer(this, false)">B. Chỉ độ khó của nhiệm vụ</li>
+                            <li onclick="checkAnswer(this, false)">C. Chỉ loại nhiệm vụ</li>
+                            <li onclick="checkAnswer(this, true)">D. Cả ba yếu tố: luyện tập, độ khó và loại nhiệm vụ</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>16. Trong điều kiện "biến đổi" của Schneider & Shiffrin:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, true)">A. Quá trình tự động không thể xảy ra</li>
+                            <li onclick="checkAnswer(this, false)">B. Quá trình tự động vẫn diễn ra bình thường</li>
+                            <li onclick="checkAnswer(this, false)">C. Kết quả tốt hơn điều kiện nhất quán</li>
+                            <li onclick="checkAnswer(this, false)">D. Không có sự khác biệt</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>17. Tại sao chúng ta có thể nghe thấy tên mình trong môi trường ồn ào?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Do tai của chúng ta nhạy hơn với tên mình</li>
+                            <li onclick="checkAnswer(this, true)">B. Do tên có ngưỡng phát hiện thấp trong "đơn vị từ điển"</li>
+                            <li onclick="checkAnswer(this, false)">C. Do chúng ta luôn chú ý đến âm thanh</li>
+                            <li onclick="checkAnswer(this, false)">D. Do phản xạ có điều kiện</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>18. Thí nghiệm về "nhắn tin khi lái xe" cho thấy nguy cơ tai nạn tăng:</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. 4 lần</li>
+                            <li onclick="checkAnswer(this, false)">B. 10 lần</li>
+                            <li onclick="checkAnswer(this, true)">C. 23 lần</li>
+                            <li onclick="checkAnswer(this, false)">D. 50 lần</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>19. Con người có thể nhận ra được gì từ hình ảnh chỉ trong 0.027 giây?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Chi tiết cụ thể của đối tượng</li>
+                            <li onclick="checkAnswer(this, true)">B. Loại động vật trong hình</li>
+                            <li onclick="checkAnswer(this, false)">C. Màu sắc chính xác</li>
+                            <li onclick="checkAnswer(this, false)">D. Văn bản trong hình</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question">
+                        <h4>20. Mô hình lựa chọn cuối (late-selection) được ủng hộ bởi bằng chứng nào?</h4>
+                        <ul class="options">
+                            <li onclick="checkAnswer(this, false)">A. Thí nghiệm nghe phân đôi cơ bản</li>
+                            <li onclick="checkAnswer(this, true)">B. Thí nghiệm câu có nghĩa mơ hồ của MacKay</li>
+                            <li onclick="checkAnswer(this, false)">C. Thí nghiệm split-scan</li>
+                            <li onclick="checkAnswer(this, false)">D. Hiện tượng cocktail party</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="demo-button" onclick="calculateScore()">Tính điểm tổng kết</button>
+                    <div id="finalScore" style="margin-top: 15px; font-size: 1.2em; font-weight: bold;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let score = 0;
+        let totalQuestions = 20;
+        let answeredQuestions = 0;
+        
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        function simulateCocktailParty() {
+            const scenarios = [
+                "🎵 Bạn đang nghe nhạc jazz nhẹ nhàng... Bỗng nhiên bạn nghe thấy ai đó gọi tên mình từ bàn bên cạnh!",
+                "🗣️ Trong cuộc trò chuyện ồn ào, bạn chỉ tập trung vào giọng nói của người bạn đang nói chuyện cùng.",
+                "📞 Khi điện thoại đổ chuông trong quán cà phê ồn ào, bạn lập tức nhận ra đó là chuông điện thoại của mình!",
+                "👂 Tại sân bay với hàng trăm thông báo, bạn chỉ chú ý đến thông báo về chuyến bay của mình."
+            ];
+            
+            const randomScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+            document.getElementById('cocktailResult').innerHTML = randomScenario;
+        }
+        
+        function checkAnswer(element, isCorrect) {
+            // Prevent multiple clicks on the same question
+            const question = element.closest('.question');
+            if (question.classList.contains('answered')) return;
+            
+            question.classList.add('answered');
+            answeredQuestions++;
+            
+            // Remove previous styling
+            const options = question.querySelectorAll('.options li');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                option.style.opacity = '0.6';
+            });
+            
+            if (isCorrect) {
+                element.style.backgroundColor = '#d4edda';
+                element.style.color = '#155724';
+                element.style.border = '2px solid #28a745';
+                score++;
+            } else {
+                element.style.backgroundColor = '#f8d7da';
+                element.style.color = '#721c24';
+                element.style.border = '2px solid #dc3545';
+                
+                // Highlight correct answer
+                options.forEach(option => {
+                    if (option.onclick.toString().includes('true')) {
+                        option.style.backgroundColor = '#d4edda';
+                        option.style.color = '#155724';
+                        option.style.border = '2px solid #28a745';
+                        option.style.opacity = '1';
+                    }
+                });
+            }
+        }
+        
+        function calculateScore() {
+            if (answeredQuestions < totalQuestions) {
+                alert(`Bạn cần trả lời tất cả ${totalQuestions} câu hỏi! Hiện tại đã trả lời: ${answeredQuestions}/${totalQuestions}`);
+                return;
+            }
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let message = '';
+            let emoji = '';
+            
+            if (percentage >= 90) {
+                message = 'Xuất sắc! Bạn là chuyên gia về tâm lý học chú ý!';
+                emoji = '🏆';
+            } else if (percentage >= 80) {
+                message = 'Rất tốt! Bạn đã nắm vững kiến thức cơ bản!';
+                emoji = '🌟';
+            } else if (percentage >= 70) {
+                message = 'Khá ổn! Hãy ôn lại một số khái niệm!';
+                emoji = '👍';
+            } else if (percentage >= 60) {
+                message = 'Trung bình! Cần học thêm để nâng cao!';
+                emoji = '📚';
+            } else {
+                message = 'Cần cố gắng hơn! Hãy đọc lại nội dung!';
+                emoji = '💪';
+            }
+            
+            document.getElementById('finalScore').innerHTML = 
+                `${emoji} Điểm của bạn: ${score}/${totalQuestions} (${percentage}%)<br>${message}`;
+        }
+        
+        // Auto-scroll to quiz when it's activated
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizTab = document.querySelector('[onclick="showTab(\'quiz\')"]');
+            if (quizTab) {
+                quizTab.addEventListener('click', function() {
+                    setTimeout(() => {
+                        document.querySelector('#quiz').scrollIntoView({behavior: 'smooth'});
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

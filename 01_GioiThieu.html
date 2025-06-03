@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám phá Tâm lý học Nhận thức</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #5a67d8;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .concept-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(0);
+            transition: all 0.3s ease;
+        }
+        
+        .concept-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .concept-title {
+            color: #4a5568;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .concept-content {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        
+        .experiment-box {
+            background: #e6fffa;
+            border-left: 5px solid #4fd1c5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .experiment-title {
+            color: #285e61;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-container {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .question h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .option {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e2e8f0;
+            border-color: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            background: #5a67d8;
+            color: white;
+        }
+        
+        .option.correct {
+            background: #48bb78;
+            color: white;
+            animation: pulse 0.5s ease;
+        }
+        
+        .option.incorrect {
+            background: #f56565;
+            color: white;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .btn {
+            background: #5a67d8;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(90, 103, 216, 0.3);
+        }
+        
+        .btn:hover {
+            background: #4c51bf;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(90, 103, 216, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5a67d8, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: #5a67d8;
+            border-radius: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 15px;
+            width: 2px;
+            height: calc(100% + 15px);
+            background: #e2e8f0;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .year {
+            color: #5a67d8;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .final-score p {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🧠 Khám phá Tâm lý học Nhận thức</h1>
+            <p class="subtitle">Chương 1: Giới thiệu Tâm lý học Nhận thức</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="score-display" id="scoreDisplay">Điểm: 0</div>
+        </div>
+        
+        <!-- Section 1: Tâm trí là gì? -->
+        <div class="content-section active" id="section1">
+            <div class="concept-card">
+                <div class="concept-title">💭 Tâm trí là gì?</div>
+                <div class="concept-content">
+                    <p><strong>Tâm trí (Mind)</strong> là một hệ thống phức tạp tạo dựng và kiểm soát các chức năng tinh thần như:</p>
+                    <ul>
+                        <li>✨ Tri giác - cách chúng ta nhận biết thế giới</li>
+                        <li>🎯 Chú ý - cách chúng ta tập trung vào thông tin</li>
+                        <li>🧩 Trí nhớ - cách chúng ta lưu trữ và nhớ lại thông tin</li>
+                        <li>💭 Tư duy - cách chúng ta suy nghĩ và lập luận</li>
+                        <li>🗣️ Ngôn ngữ - cách chúng ta giao tiếp</li>
+                        <li>⚡ Ra quyết định - cách chúng ta lựa chọn</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <div class="experiment-title">🔬 Ví dụ thực tế: Câu chuyện của Terri Schiavo</div>
+                <p>Trường hợp Terri Schiavo minh họa cho câu hỏi phức tạp về ý thức và tâm trí. Bà sống trong trạng thái thực vật suốt 15 năm, đặt ra câu hỏi: Liệu có "ai đó" còn tồn tại bên trong không?</p>
+            </div>
+        </div>
+        
+        <!-- Section 2: Lịch sử phát triển -->
+        <div class="content-section" id="section2">
+            <div class="concept-card">
+                <div class="concept-title">📚 Những công việc ban đầu trong nghiên cứu tâm trí</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="year">1868</div>
+                        <strong>Donders - Thực nghiệm đầu tiên</strong>
+                        <p>Đo thời gian phản ứng để hiểu quá trình ra quyết định. Phát hiện: việc lựa chọn giữa 2 kích thích mất thêm 1/10 giây.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">1879</div>
+                        <strong>Wundt - Phòng thí nghiệm tâm lý đầu tiên</strong>
+                        <p>Thành lập tại Leipzig, Đức. Phát triển chủ nghĩa cấu trúc và phương pháp nội quan.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">1885</div>
+                        <strong>Ebbinghaus - Nghiên cứu trí nhớ</strong>
+                        <p>Phát hiện đường cong lãng quên: chúng ta quên nhanh nhất trong 1-2 ngày đầu.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">1890</div>
+                        <strong>William James - Giáo trình tâm lý đầu tiên</strong>
+                        <p>"Những nguyên lý của Tâm lý học" - nền tảng cho nghiên cứu hiện đại.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 3: Chủ nghĩa hành vi -->
+        <div class="content-section" id="section3">
+            <div class="concept-card">
+                <div class="concept-title">🚫 Từ bỏ việc nghiên cứu tâm trí</div>
+                <div class="concept-content">
+                    <p><strong>Chủ nghĩa hành vi (Behaviorism)</strong> do Watson khởi xướng (1913):</p>
+                    <ul>
+                        <li>❌ Bác bỏ nghiên cứu các quá trình tinh thần bên trong</li>
+                        <li>✅ Chỉ nghiên cứu hành vi có thể quan sát được</li>
+                        <li>🔗 Tập trung vào mối quan hệ Kích thích → Phản ứng</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <div class="experiment-title">👶 Thí nghiệm "Little Albert" (1920)</div>
+                <p>Watson và Rayner điều kiện hóa nỗi sợ ở bé Albert 9 tháng tuổi:</p>
+                <ol>
+                    <li>Cho bé chơi với chuột trắng (kích thích trung tính)</li>
+                    <li>Tạo tiếng động lớn mỗi khi bé chạm vào chuột</li>
+                    <li>Kết quả: Bé sợ chuột trắng và cả những vật màu trắng khác</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Section 4: Cách mạng nhận thức -->
+        <div class="content-section" id="section4">
+            <div class="concept-card">
+                <div class="concept-title">🔄 Sự tái sinh của nghiên cứu tâm trí</div>
+                <div class="concept-content">
+                    <p><strong>Những sự kiện quan trọng dẫn đến "Cách mạng nhận thức":</strong></p>
+                    <ul>
+                        <li>🗺️ <strong>Tolman (1938)</strong>: Phát hiện "bản đồ nhận thức" ở chuột</li>
+                        <li>💻 <strong>Máy tính (1940s-50s)</strong>: Gợi ý mô hình xử lý thông tin cho tâm trí</li>
+                        <li>🤖 <strong>Hội nghị Dartmouth (1956)</strong>: Khai sinh AI và khoa học nhận thức</li>
+                        <li>📖 <strong>Neisser (1967)</strong>: Xuất bản "Cognitive Psychology"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experiment-box">
+                <div class="experiment-title">🧮 Logic Theorist (1956)</div>
+                <p>Simon và Newell tạo ra chương trình máy tính đầu tiên có thể giải quyết vấn đề logic - công việc trước đó chỉ con người làm được!</p>
+            </div>
+        </div>
+        
+        <!-- Quiz Section -->
+        <div class="content-section" id="quizSection">
+            <div class="quiz-container">
+                <h2 style="text-align: center; color: #4a5568;">🎯 Kiểm tra kiến thức</h2>
+                <div id="quizContent"></div>
+            </div>
+        </div>
+        
+        <!-- Final Score Section -->
+        <div class="content-section" id="finalSection">
+            <div class="final-score">
+                <h2>🎉 Chúc mừng!</h2>
+                <p id="finalScoreText"></p>
+                <p id="feedbackText"></p>
+                <button class="btn" onclick="restartGame()">Chơi lại</button>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button class="btn" id="prevBtn" onclick="previousSection()" disabled>Quay lại</button>
+            <button class="btn" id="nextBtn" onclick="nextSection()">Tiếp theo</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSection = 0;
+        let score = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizSubmitted = false;
+        
+        const sections = ['section1', 'section2', 'section3', 'section4', 'quizSection', 'finalSection'];
+        
+        const questions = [
+            {
+                question: "Tâm trí tạo dựng và kiểm soát những chức năng nào?",
+                options: [
+                    "Chỉ có trí nhớ và tư duy",
+                    "Tri giác, chú ý, trí nhớ, cảm xúc, ngôn ngữ, ra quyết định, tư duy",
+                    "Chỉ có hành vi quan sát được",
+                    "Chỉ có phản xạ tự động"
+                ],
+                correct: 1
+            },
+            {
+                question: "Ai đã thực hiện thí nghiệm đo thời gian phản ứng đầu tiên?",
+                options: ["Wundt", "Donders", "James", "Watson"],
+                correct: 1
+            },
+            {
+                question: "Phòng thí nghiệm tâm lý đầu tiên được thành lập năm nào và ở đâu?",
+                options: [
+                    "1885 tại Mỹ",
+                    "1879 tại Leipzig, Đức", 
+                    "1890 tại Pháp",
+                    "1913 tại Anh"
+                ],
+                correct: 1
+            },
+            {
+                question: "Theo Donders, việc ra quyết định giữa hai kích thích mất bao lâu?",
+                options: ["1 giây", "1/2 giây", "1/10 giây", "1/100 giây"],
+                correct: 2
+            },
+            {
+                question: "Ebbinghaus phát hiện điều gì về quá trình quên?",
+                options: [
+                    "Quên đều đặn theo thời gian",
+                    "Quên nhanh nhất trong 1-2 ngày đầu",
+                    "Không bao giờ quên hoàn toàn",
+                    "Quên ngẫu nhiên"
+                ],
+                correct: 1
+            },
+            {
+                question: "Chủ nghĩa hành vi do ai khởi xướng?",
+                options: ["Skinner", "Pavlov", "Watson", "Tolman"],
+                correct: 2
+            },
+            {
+                question: "Thí nghiệm 'Little Albert' minh họa cho nguyên lý nào?",
+                options: [
+                    "Điều kiện hóa cổ điển",
+                    "Điều kiện hóa tạo tác",
+                    "Học quan sát",
+                    "Học thử và sai"
+                ],
+                correct: 0
+            },
+            {
+                question: "Tolman phát hiện điều gì ở chuột mâu thuẫn với chủ nghĩa hành vi?",
+                options: [
+                    "Phản xạ có điều kiện",
+                    "Bản đồ nhận thức",
+                    "Hành vi bản năng",
+                    "Học tập xã hội"
+                ],
+                correct: 1
+            },
+            {
+                question: "Hội nghị nào được coi là 'ngày sinh của khoa học nhận thức'?",
+                options: [
+                    "Hội nghị Leipzig 1879",
+                    "Hội nghị Dartmouth và MIT 1956",
+                    "Hội nghị Harvard 1967",
+                    "Hội nghị Stanford 1970"
+                ],
+                correct: 1
+            },
+            {
+                question: "Logic Theorist do ai phát triển?",
+                options: [
+                    "McCarthy",
+                    "Turing",
+                    "Simon và Newell",
+                    "Von Neumann"
+                ],
+                correct: 2
+            },
+            {
+                question: "Giáo trình 'Cognitive Psychology' được xuất bản năm nào?",
+                options: ["1956", "1967", "1970", "1979"],
+                correct: 1
+            },
+            {
+                question: "Phương pháp nội quan (introspection) được sử dụng bởi trường phái nào?",
+                options: [
+                    "Chủ nghĩa hành vi",
+                    "Chủ nghĩa cấu trúc",
+                    "Chủ nghĩa chức năng",
+                    "Chủ nghĩa nhận thức"
+                ],
+                correct: 1
+            },
+            {
+                question: "Điều kiện hóa tạo tác (operant conditioning) do ai phát triển?",
+                options: ["Watson", "Pavlov", "Skinner", "Thorndike"],
+                correct: 2
+            },
+            {
+                question: "Chomsky phê phán lý thuyết học ngôn ngữ của ai?",
+                options: ["Watson", "Skinner", "Pavlov", "James"],
+                correct: 1
+            },
+            {
+                question: "Mô hình xử lý thông tin so sánh tâm trí với cái gì?",
+                options: [
+                    "Máy điện thoại",
+                    "Máy tính",
+                    "Mạng lưới thần kinh",
+                    "Hệ thống cơ học"
+                ],
+                correct: 1
+            },
+            {
+                question: "William James nổi tiếng với tác phẩm nào?",
+                options: [
+                    "Cognitive Psychology",
+                    "Verbal Behavior",
+                    "Principles of Psychology",
+                    "The Mind of Man"
+                ],
+                correct: 2
+            },
+            {
+                question: "Broadbent đề xuất mô hình nào về chú ý?",
+                options: [
+                    "Mô hình bộ lọc",
+                    "Mô hình tài nguyên",
+                    "Mô hình spotlight",
+                    "Mô hình zoom lens"
+                ],
+                correct: 0
+            },
+            {
+                question: "Thí nghiệm Palmer (1975) minh họa điều gì?",
+                options: [
+                    "Trí nhớ ngắn hạn có giới hạn",
+                    "Kiến thức ảnh hưởng đến tri giác",
+                    "Chú ý có thể chia tách",
+                    "Ngôn ngữ ảnh hưởng tư duy"
+                ],
+                correct: 1
+            }
+        ];
+        
+        function showSection(index) {
+            sections.forEach((section, i) => {
+                document.getElementById(section).classList.toggle('active', i === index);
+            });
+            
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').style.display = index === sections.length - 1 ? 'none' : 'block';
+            
+            // Remove review button if going back to non-quiz sections
+            const reviewBtn = document.getElementById('reviewBtn');
+            if (reviewBtn && index < 4) {
+                reviewBtn.remove();
+            }
+            
+            if (index === 4) { // Quiz section
+                if (!window.quizSubmitted) {
+                    loadQuiz();
+                    document.getElementById('nextBtn').textContent = 'Nộp bài';
+                    document.getElementById('nextBtn').onclick = submitQuiz;
+                } else {
+                    // If returning to review quiz
+                    document.getElementById('nextBtn').textContent = 'Xem kết quả';
+                    document.getElementById('nextBtn').onclick = () => {
+                        currentSection = 5;
+                        showSection(currentSection);
+                    };
+                }
+            } else if (index < 4) {
+                document.getElementById('nextBtn').textContent = 'Tiếp theo';
+                document.getElementById('nextBtn').onclick = nextSection;
+            }
+            
+            updateProgress();
+        }
+        
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+        
+        function previousSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+        
+        function updateProgress() {
+            const progress = ((currentSection + 1) / sections.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function updateScore(points) {
+            score += points;
+            document.getElementById('scoreDisplay').textContent = `Điểm: ${score}`;
+        }
+        
+        function loadQuiz() {
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = '';
+            window.quizSubmitted = false;
+            
+            // Shuffle and select 10 random questions
+            const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, 10);
+            
+            shuffled.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <h3>Câu ${index + 1}: ${q.question}</h3>
+                    <div class="options">
+                        ${q.options.map((option, i) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${i})" data-question="${index}" data-option="${i}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContent.appendChild(questionDiv);
+            });
+            
+            window.currentQuestions = shuffled;
+        }
+        
+        function selectAnswer(questionIndex, optionIndex) {
+            const options = document.querySelectorAll(`[data-question="${questionIndex}"]`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            userAnswers[questionIndex] = optionIndex;
+        }
+        
+        function submitQuiz() {
+            let correctCount = 0;
+            window.quizSubmitted = true;
+            
+            window.currentQuestions.forEach((q, qIndex) => {
+                const options = document.querySelectorAll(`[data-question="${qIndex}"]`);
+                const userAnswer = userAnswers[qIndex];
+                
+                // Disable clicking after submission
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+                
+                if (userAnswer !== undefined) {
+                    if (userAnswer === q.correct) {
+                        options[userAnswer].classList.add('correct');
+                        correctCount++;
+                        updateScore(10);
+                    } else {
+                        options[userAnswer].classList.add('incorrect');
+                        options[q.correct].classList.add('correct');
+                    }
+                } else {
+                    // Mark correct answer for unanswered questions
+                    options[q.correct].classList.add('correct');
+                }
+            });
+            
+            // Change button to review mode
+            document.getElementById('nextBtn').textContent = 'Xem kết quả';
+            document.getElementById('nextBtn').onclick = () => {
+                currentSection = 5;
+                showSection(currentSection);
+                showFinalScore(correctCount);
+            };
+            
+            // Add review button
+            const navDiv = document.querySelector('.navigation');
+            if (!document.getElementById('reviewBtn')) {
+                const reviewBtn = document.createElement('button');
+                reviewBtn.id = 'reviewBtn';
+                reviewBtn.className = 'btn';
+                reviewBtn.textContent = 'Xem lại câu hỏi';
+                reviewBtn.onclick = () => {
+                    currentSection = 4;
+                    showSection(currentSection);
+                };
+                navDiv.insertBefore(reviewBtn, document.getElementById('nextBtn'));
+            }
+        }
+        
+        function showFinalScore(correctCount) {
+            const totalQuestions = window.currentQuestions.length;
+            const percentage = (correctCount / totalQuestions) * 100;
+            
+            document.getElementById('finalScoreText').textContent = 
+                `Bạn trả lời đúng ${correctCount}/${totalQuestions} câu (${percentage.toFixed(0)}%)`;
+            
+            let feedback = '';
+            if (percentage >= 80) {
+                feedback = '🌟 Xuất sắc! Bạn đã nắm vững kiến thức về tâm lý học nhận thức!';
+            } else if (percentage >= 60) {
+                feedback = '👍 Tốt lắm! Bạn đã hiểu được các khái niệm cơ bản!';
+            } else {
+                feedback = '💪 Cần ôn tập thêm! Hãy xem lại các phần lý thuyết nhé!';
+            }
+            
+            document.getElementById('feedbackText').textContent = feedback;
+        }
+        
+        function restartGame() {
+            currentSection = 0;
+            score = 0;
+            userAnswers = [];
+            window.quizSubmitted = false;
+            document.getElementById('scoreDisplay').textContent = 'Điểm: 0';
+            
+            // Remove review button if exists
+            const reviewBtn = document.getElementById('reviewBtn');
+            if (reviewBtn) {
+                reviewBtn.remove();
+            }
+            
+            showSection(0);
+        }
+        
+        // Initialize
+        showSection(0);
+    </script>
+</body>
+</html>
