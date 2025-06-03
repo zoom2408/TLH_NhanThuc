@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tâm lý học Nhận thức: Trí nhớ & Lỗi trí nhớ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .tab:hover, .tab.active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+        .highlight { background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%); padding: 20px; border-radius: 10px; margin: 15px 0; border-left: 5px solid #e17055; }
+        .experiment-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .experiment-title { font-size: 1.5em; font-weight: bold; margin-bottom: 15px; }
+        .practical-example {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .example-title { font-weight: bold; margin-bottom: 10px; color: #2d3436; }
+        .quiz-container { margin-top: 30px; }
+        .question {
+            background: #fff; border-radius: 10px; padding: 20px; margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 4px solid #28a745;
+        }
+        .question h4 { color: #333; margin-bottom: 15px; }
+        .options { list-style: none; padding: 0; }
+        .options li {
+            padding: 10px; margin: 5px 0; background: #f8f9fa;
+            border-radius: 5px; cursor: pointer; transition: background 0.3s ease;
+        }
+        .options li:hover { background: #e9ecef; }
+        .model-diagram {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .flow-step {
+            display: inline-block;
+            background: white;
+            padding: 15px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .flow-step::after {
+            content: "→";
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #666;
+        }
+        .flow-step:last-child::after { display: none; }
+        .demo-button {
+            background: linear-gradient(45deg, #43cea2, #185a9d);
+            color: white; border: none; padding: 12px 25px;
+            border-radius: 25px; cursor: pointer; font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🧠 Trí nhớ & Lỗi trí nhớ</h1>
+        <p>Tâm lý học Nhận thức – Tổng quan, lý thuyết, thực nghiệm & luyện tập trắc nghiệm</p>
+    </div>
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('definitions')">Định nghĩa & Phân loại</button>
+        <button class="tab" onclick="showTab('experiments')">Thí nghiệm & Khái niệm then chốt</button>
+        <button class="tab" onclick="showTab('models')">Mô hình & Cơ chế</button>
+        <button class="tab" onclick="showTab('applications')">Ứng dụng & Lỗi thực tế</button>
+        <button class="tab" onclick="showTab('quiz')">Trắc nghiệm ôn tập</button>
+    </div>
+    <div class="content">
+        <!-- Định nghĩa -->
+        <div id="definitions" class="tab-content active">
+            <h2>🎯 Khái niệm và Phân loại Trí nhớ</h2>
+            <div class="highlight">
+                <b>Trí nhớ</b> là quá trình ghi nhận, lưu trữ và hồi tưởng thông tin hoặc kinh nghiệm đã trải qua.<br>
+                <b>Trí nhớ tự thuật (Autobiographical memory)</b>: Là trí nhớ về các sự kiện, mốc thời gian cá nhân, thường liên quan cảm xúc hoặc ý nghĩa lớn trong cuộc sống.
+            </div>
+            <h3>Ba tầng hiểu biết trong trí nhớ tự thuật (Conway, 1996):</h3>
+            <ul>
+                <li><b>Sự kiện đặc biệt (Event-specific knowledge)</b>: Sự kiện cá nhân kéo dài vài phút đến vài giờ.</li>
+                <li><b>Sự kiện chung (General events)</b>: Xảy ra nhiều lần trong nhiều ngày/tuần/tháng.</li>
+                <li><b>Giai đoạn cuộc đời (Lifetime periods)</b>: Kéo dài nhiều năm, đánh dấu bởi các mốc lớn.</li>
+            </ul>
+            <div class="practical-example">
+                <div class="example-title">💡 Ví dụ thực tế:</div>
+                <p>Việc bạn nhớ ngày tốt nghiệp hoặc lần đầu tiên đi làm là minh họa cho <b>trí nhớ tự thuật</b>.</p>
+            </div>
+            <div class="highlight">
+                <h3>📈 Hiện tượng hồi tưởng (Reminiscence bump):</h3>
+                Người trung niên thường nhớ nhiều sự kiện từ tuổi thiếu niên đến đầu trưởng thành (10-30 tuổi), vì đây là giai đoạn thay đổi mạnh mẽ.
+            </div>
+        </div>
+        <!-- Thí nghiệm & Khái niệm then chốt -->
+        <div id="experiments" class="tab-content">
+            <h2>🔬 Các thí nghiệm & Hiện tượng kinh điển</h2>
+            <div class="experiment-card">
+                <div class="experiment-title">1. Ký ức sáng tỏ (Flashbulb Memory)</div>
+                <p>Chúng ta có thể nhớ rất rõ mình ở đâu, làm gì khi xảy ra sự kiện đặc biệt (ví dụ: 11/9, thắng lớn, tai nạn). Nghiên cứu của Brown & Kulick (1977) cho rằng đây là loại trí nhớ có “ảnh chụp” sống động, thường liên quan cảm xúc mạnh và bất ngờ.</p>
+                <button class="demo-button" onclick="alert('Ví dụ: Bạn còn nhớ mình đang làm gì khi biết điểm đại học hay lần đầu nhận việc?')">Ví dụ cá nhân</button>
+            </div>
+            <div class="experiment-card">
+                <div class="experiment-title">2. Thí nghiệm của Neisser & Harsch (1992)</div>
+                <p>Sau sự kiện Challenger, hỏi người tham gia về hoàn cảnh nghe tin ngay sau đó và sau 2,5 năm. Nhiều người “nhớ sai” hoàn cảnh ban đầu, chứng minh <b>flashbulb memory cũng dễ bị biến đổi</b> như trí nhớ thường.</p>
+            </div>
+            <div class="experiment-card">
+                <div class="experiment-title">3. Thí nghiệm "Cuộc chiến của các linh hồn" – Bartlett (1932)</div>
+                <p>Người tham gia đọc truyện dân gian và kể lại sau đó. Kết quả: thông tin bị lược giản, thêm thắt và bóp méo theo văn hóa bản thân. <b>Chứng minh trí nhớ là quá trình kiến tạo, không phải sao chép.</b></p>
+            </div>
+            <div class="experiment-card">
+                <div class="experiment-title">4. Thí nghiệm MPI – Elizabeth Loftus</div>
+                <p>Sau khi xem tai nạn, người tham gia được cung cấp thông tin sai (“xe dừng ở bảng nhường đường”, thay vì bảng dừng). Kết quả: nhiều người nhớ theo thông tin sai, minh chứng <b>ảnh hưởng thông tin sai lệch (Misinformation Effect)</b>.</p>
+            </div>
+            <div class="experiment-card">
+                <div class="experiment-title">5. Thí nghiệm Brewer & Treyens (1981) – Giản đồ</div>
+                <p>Ngồi trong phòng chờ, sau đó mô tả những vật đã thấy. Nhiều người “nhớ” cả những vật chưa từng xuất hiện nhưng phù hợp với “giản đồ văn phòng”.</p>
+            </div>
+        </div>
+        <!-- Mô hình & Cơ chế -->
+        <div id="models" class="tab-content">
+            <h2>🏗️ Mô hình & Cơ chế lỗi trí nhớ</h2>
+            <div class="model-diagram">
+                <h3>📚 Trí nhớ kiến tạo (Constructive Memory)</h3>
+                <div class="flow-step">Trải nghiệm thực tế</div>
+                <div class="flow-step">Tiếp nhận + Kinh nghiệm bản thân</div>
+                <div class="flow-step">Xử lý, kết nối ý nghĩa</div>
+                <div class="flow-step">Nhớ lại (Có thể bóp méo, thêm/bớt)</div>
+            </div>
+            <div class="highlight">
+                <b>Lỗi nguồn (Source Monitoring Error):</b> Nhớ nhầm nguồn gốc của thông tin (“Mình đọc ở đâu nhỉ?”) dẫn đến ký ức sai.
+            </div>
+            <div class="model-diagram">
+                <h3>🔁 Giản đồ & Kịch bản (Schema & Script)</h3>
+                <div class="flow-step">Kinh nghiệm – Kiến thức sẵn có</div>
+                <div class="flow-step">Xử lý thông tin mới</div>
+                <div class="flow-step">Hồi ức dựa trên giản đồ</div>
+                <div class="flow-step">Dễ nhớ nhầm các chi tiết hợp lý với giản đồ</div>
+            </div>
+        </div>
+        <!-- Ứng dụng & Lỗi thực tế -->
+        <div id="applications" class="tab-content">
+            <h2>🌟 Ứng dụng & Hậu quả của lỗi trí nhớ</h2>
+            <div class="practical-example">
+                <div class="example-title">Nhân chứng sai lầm</div>
+                <p>Nhiều người bị kết án oan chỉ vì nhân chứng nhớ nhầm khuôn mặt/tình huống do cảm xúc, thông tin sai, hoặc do quen thuộc.</p>
+            </div>
+            <div class="practical-example">
+                <div class="example-title">Tạo ký ức giả</div>
+                <p>Qua thí nghiệm, chỉ cần được nghe lặp lại một chi tiết “không có thật” về quá khứ, sau một thời gian người ta có thể coi đó là thật!</p>
+            </div>
+            <div class="practical-example">
+                <div class="example-title">Ứng dụng tích cực</div>
+                <ul>
+                    <li>Hiểu được giới hạn của trí nhớ giúp giảm nguy cơ nhớ sai/làm chứng sai.</li>
+                    <li>Có thể áp dụng vào giáo dục (dạy ghi nhớ bằng hình ảnh, cảm xúc...)</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Quiz -->
+      <div id="quiz" class="tab-content">
+    <h2>📝 Trắc nghiệm ôn tập</h2>
+    <div class="quiz-container" id="quiz-questions">
+        <!-- Questions generated by JS -->
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <button class="demo-button" onclick="calculateScore()">Tính điểm</button>
+        <button class="demo-button" style="margin-left:10px;" onclick="resetQuiz()">Làm lại</button>
+        <div id="finalScore" style="margin-top: 15px; font-size: 1.2em; font-weight: bold;"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+  
+  </body>
+  <script>
+    // Tabs
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+        if (tabName === 'quiz') resetQuiz();
+    }
+
+    // Quiz data
+    const quizQuestions = [
+        {
+            q: "Trí nhớ tự thuật là gì?",
+            a: [
+                "A. Nhớ về các kỹ năng vận động",
+                "B. Nhớ về các sự kiện cá nhân có ý nghĩa trong cuộc đời",
+                "C. Nhớ thông tin đã học ở trường",
+                "D. Nhớ các con số và sự kiện lịch sử"
+            ],
+            correct: 1
+        },
+        {
+            q: "Hiện tượng hồi tưởng (reminiscence bump) đề cập đến:",
+            a: [
+                "A. Người già nhớ tốt sự kiện gần đây",
+                "B. Người lớn tuổi nhớ rõ sự kiện thời thiếu niên & đầu trưởng thành",
+                "C. Trẻ nhỏ nhớ tốt các sự kiện",
+                "D. Người trẻ nhớ rõ các sự kiện của người khác"
+            ],
+            correct: 1
+        },
+        {
+            q: "Flashbulb memory là gì?",
+            a: [
+                "A. Nhớ lại kiến thức toán học",
+                "B. Nhớ sống động, chi tiết về sự kiện cảm xúc mạnh/bất ngờ",
+                "C. Nhớ lỗi, không chính xác",
+                "D. Nhớ các sự kiện lặp lại hằng ngày"
+            ],
+            correct: 1
+        },
+        {
+            q: "Thí nghiệm của Neisser & Harsch về sự kiện Challenger cho thấy:",
+            a: [
+                "A. Trí nhớ flashbulb hoàn toàn chính xác",
+                "B. Trí nhớ flashbulb cũng dễ biến đổi, nhớ sai",
+                "C. Tất cả mọi người đều nhớ như nhau",
+                "D. Không ai nhớ sự kiện này"
+            ],
+            correct: 1
+        },
+        {
+            q: "Thí nghiệm Bartlett cho thấy trí nhớ có tính:",
+            a: [
+                "A. Sao chép nguyên trạng",
+                "B. Kiến tạo, dễ bị bóp méo bởi văn hóa và kinh nghiệm cá nhân",
+                "C. Không thể thay đổi",
+                "D. Không liên quan đến trải nghiệm cá nhân"
+            ],
+            correct: 1
+        },
+        {
+            q: "Ảnh hưởng thông tin sai lệch (MPI) nghĩa là gì?",
+            a: [
+                "A. Nhớ càng ngày càng tốt",
+                "B. Trí nhớ bị thay đổi do tiếp nhận thông tin sai sau sự kiện",
+                "C. Không bao giờ thay đổi trí nhớ",
+                "D. Chỉ xuất hiện ở trẻ nhỏ"
+            ],
+            correct: 1
+        },
+        {
+            q: "Source monitoring error là:",
+            a: [
+                "A. Nhớ chính xác nguồn thông tin",
+                "B. Nhớ nhầm nguồn gốc của ký ức/thông tin",
+                "C. Không bao giờ xảy ra",
+                "D. Chỉ xuất hiện ở người mất trí"
+            ],
+            correct: 1
+        },
+        {
+            q: "Giản đồ (schema) ảnh hưởng đến trí nhớ thế nào?",
+            a: [
+                "A. Giúp nhớ chính xác 100%",
+                "B. Dễ nhớ thêm/thay đổi chi tiết phù hợp với giản đồ",
+                "C. Không ảnh hưởng gì",
+                "D. Làm tăng trí nhớ tạm thời"
+            ],
+            correct: 1
+        },
+        {
+            q: "Kịch bản (script) là gì?",
+            a: [
+                "A. Kế hoạch học tập",
+                "B. Chuỗi các hành động thông thường cho một tình huống",
+                "C. Trò chơi trí tuệ",
+                "D. Một dạng ký ức ngắn hạn"
+            ],
+            correct: 1
+        },
+        {
+            q: "Ở thí nghiệm Brewer & Treyens, người tham gia thường nhớ:",
+            a: [
+                "A. Chỉ những vật thật trong phòng",
+                "B. Thêm những vật phù hợp với giản đồ (vd: sách trong phòng làm việc)",
+                "C. Không nhớ gì cả",
+                "D. Chỉ nhớ màu sắc"
+            ],
+            correct: 1
+        },
+        {
+            q: "Trí nhớ giống như cuộn băng ghi hình thực tế?",
+            a: [
+                "A. Đúng",
+                "B. Sai, vì trí nhớ luôn bị kiến tạo, bóp méo, thêm bớt",
+                "C. Không rõ",
+                "D. Chỉ đúng với người thông minh"
+            ],
+            correct: 1
+        },
+        {
+            q: "Tại sao có người nhớ 'giấc mơ' chưa từng xảy ra?",
+            a: [
+                "A. Do có trí nhớ tốt",
+                "B. Do hiệu ứng thông tin sai, giản đồ hoặc ám thị",
+                "C. Do não quá tải",
+                "D. Do thiếu ngủ"
+            ],
+            correct: 1
+        },
+        {
+            q: "Điều nào dưới đây đúng về nhân chứng trong tòa án?",
+            a: [
+                "A. Nhân chứng luôn nhớ chính xác",
+                "B. Nhân chứng có thể nhận nhầm thủ phạm do quen mặt, cảm xúc hoặc thông tin sai",
+                "C. Nhân chứng không quan trọng",
+                "D. Không ai quan tâm đến nhân chứng"
+            ],
+            correct: 1
+        },
+        {
+            q: "Ký ức giả (false memory) có thể được tạo ra bằng cách nào?",
+            a: [
+                "A. Nhắc lại chi tiết sai lặp đi lặp lại",
+                "B. Chỉ xảy ra ở người già",
+                "C. Không thể tạo được",
+                "D. Phải dùng thuốc"
+            ],
+            correct: 0
+        },
+        {
+            q: "Vai trò tích cực của trí nhớ kiến tạo là:",
+            a: [
+                "A. Chỉ tạo ra lỗi",
+                "B. Giúp chúng ta xử lý thông tin nhanh, rút kinh nghiệm, dự đoán tình huống mới",
+                "C. Không có vai trò gì",
+                "D. Làm chậm khả năng học hỏi"
+            ],
+            correct: 1
+        }
+    ];
+
+    // Shuffle function
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    let score = 0, answeredQuestions = 0, currentQuiz = [];
+
+    // Render quiz with shuffled questions and answers
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quiz-questions');
+        quizContainer.innerHTML = '';
+        score = 0;
+        answeredQuestions = 0;
+
+        // Deep copy and shuffle questions
+        currentQuiz = quizQuestions.map(q => {
+            const answerObjs = q.a.map((text, idx) => ({
+                text,
+                isCorrect: idx === q.correct
+            }));
+            shuffleArray(answerObjs);
+            return { q: q.q, answers: answerObjs };
+        });
+        shuffleArray(currentQuiz);
+
+        // Render to HTML
+        currentQuiz.forEach((qObj, i) => {
+            const opts = qObj.answers.map(aObj =>
+                `<li onclick="checkAnswer(this, ${aObj.isCorrect})">${aObj.text}</li>`
+            ).join('');
+            quizContainer.innerHTML += `
+                <div class="question">
+                    <h4>${qObj.q}</h4>
+                    <ul class="options">${opts}</ul>
+                </div>
+            `;
+        });
+
+        document.getElementById('finalScore').innerText = '';
+    }
+
+    function checkAnswer(element, isCorrect) {
+        const question = element.closest('.question');
+        if (question.classList.contains('answered')) return;
+        question.classList.add('answered');
+        answeredQuestions++;
+        const options = question.querySelectorAll('.options li');
+        options.forEach(option => { option.style.pointerEvents = 'none'; option.style.opacity = '0.7'; });
+        if (isCorrect) {
+            element.style.backgroundColor = '#d4edda'; element.style.color = '#155724'; element.style.border = '2px solid #28a745'; score++;
+        } else {
+            element.style.backgroundColor = '#f8d7da'; element.style.color = '#721c24'; element.style.border = '2px solid #dc3545';
+            options.forEach(option => {
+                if (option.onclick && option.onclick.toString().includes('true')) {
+                    option.style.backgroundColor = '#d4edda';
+                }
+            });
+        }
+    }
+    function calculateScore() {
+        document.getElementById('finalScore').innerText = `Bạn đúng ${score}/${quizQuestions.length} câu!`;
+    }
+    function resetQuiz() {
+        renderQuiz();
+    }
+
+    // Initial render
+    renderQuiz();
+</script>
+
+  </html>
+
